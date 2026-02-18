@@ -128,7 +128,7 @@ export function printProposal(proposal: ProposalDetail): void {
 
   <div class="footer">Printed from ProposalIQ &middot; ${printedText}</div>
 
-  <script>window.onload = function () { window.print(); };<\/script>
+  <script>window.onload = function () { window.print(); };</` + `script>
 </body>
 </html>`);
 
