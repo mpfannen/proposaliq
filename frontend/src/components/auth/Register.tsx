@@ -5,6 +5,9 @@ import './Auth.css';
 
 const RECAPTCHA_SITE_KEY = process.env.REACT_APP_RECAPTCHA_SITE_KEY;
 
+// Debug: log at module load so you can see the value in the browser console
+console.log('[reCAPTCHA] REACT_APP_RECAPTCHA_SITE_KEY at module load:', RECAPTCHA_SITE_KEY || '(not set)');
+
 const Register: React.FC = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -18,31 +21,53 @@ const Register: React.FC = () => {
 
   // Dynamically load reCAPTCHA v3 script if site key is configured
   useEffect(() => {
-    if (!RECAPTCHA_SITE_KEY) return;
+    console.log('[reCAPTCHA] useEffect running, site key:', RECAPTCHA_SITE_KEY || '(not set)');
+
+    if (!RECAPTCHA_SITE_KEY) {
+      console.warn('[reCAPTCHA] No site key — script will NOT load. Set REACT_APP_RECAPTCHA_SITE_KEY in Vercel and redeploy.');
+      return;
+    }
 
     const script = document.createElement('script');
     script.src = `https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`;
     script.async = true;
+    script.onload = () => console.log('[reCAPTCHA] Script loaded successfully, window.grecaptcha:', !!(window as any).grecaptcha);
+    script.onerror = (e) => console.error('[reCAPTCHA] Script FAILED to load:', e);
     document.head.appendChild(script);
+    console.log('[reCAPTCHA] Script tag appended to <head>');
 
     return () => {
-      document.head.removeChild(script);
-      // Remove the floating reCAPTCHA badge when leaving this page
+      if (document.head.contains(script)) {
+        document.head.removeChild(script);
+      }
       const badge = document.querySelector('.grecaptcha-badge');
       if (badge) badge.remove();
     };
   }, []);
 
   const getRecaptchaToken = (): Promise<string | undefined> => {
-    if (!RECAPTCHA_SITE_KEY || !(window as any).grecaptcha) {
+    console.log('[reCAPTCHA] getRecaptchaToken called, grecaptcha:', !!(window as any).grecaptcha);
+    if (!RECAPTCHA_SITE_KEY) {
+      console.warn('[reCAPTCHA] No site key — skipping token generation');
+      return Promise.resolve(undefined);
+    }
+    if (!(window as any).grecaptcha) {
+      console.warn('[reCAPTCHA] window.grecaptcha not defined — script may not have loaded yet');
       return Promise.resolve(undefined);
     }
     return new Promise((resolve) => {
       (window as any).grecaptcha.ready(() => {
+        console.log('[reCAPTCHA] grecaptcha.ready fired, executing...');
         (window as any).grecaptcha
           .execute(RECAPTCHA_SITE_KEY, { action: 'register' })
-          .then(resolve)
-          .catch(() => resolve(undefined));
+          .then((token: string) => {
+            console.log('[reCAPTCHA] Token generated successfully (first 20 chars):', token.slice(0, 20));
+            resolve(token);
+          })
+          .catch((err: any) => {
+            console.error('[reCAPTCHA] execute failed:', err);
+            resolve(undefined);
+          });
       });
     });
   };
