@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import './Auth.css';
+
+const RECAPTCHA_SITE_KEY = process.env.REACT_APP_RECAPTCHA_SITE_KEY;
 
 const Register: React.FC = () => {
   const [name, setName] = useState('');
@@ -13,6 +15,37 @@ const Register: React.FC = () => {
 
   const { register } = useAuth();
   const navigate = useNavigate();
+
+  // Dynamically load reCAPTCHA v3 script if site key is configured
+  useEffect(() => {
+    if (!RECAPTCHA_SITE_KEY) return;
+
+    const script = document.createElement('script');
+    script.src = `https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`;
+    script.async = true;
+    document.head.appendChild(script);
+
+    return () => {
+      document.head.removeChild(script);
+      // Remove the floating reCAPTCHA badge when leaving this page
+      const badge = document.querySelector('.grecaptcha-badge');
+      if (badge) badge.remove();
+    };
+  }, []);
+
+  const getRecaptchaToken = (): Promise<string | undefined> => {
+    if (!RECAPTCHA_SITE_KEY || !(window as any).grecaptcha) {
+      return Promise.resolve(undefined);
+    }
+    return new Promise((resolve) => {
+      (window as any).grecaptcha.ready(() => {
+        (window as any).grecaptcha
+          .execute(RECAPTCHA_SITE_KEY, { action: 'register' })
+          .then(resolve)
+          .catch(() => resolve(undefined));
+      });
+    });
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,7 +69,8 @@ const Register: React.FC = () => {
 
     try {
       setIsLoading(true);
-      await register({ name, email, password });
+      const recaptchaToken = await getRecaptchaToken();
+      await register({ name, email, password, recaptchaToken });
       navigate('/dashboard');
     } catch (err: any) {
       setError(err.message || 'Registration failed');

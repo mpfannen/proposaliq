@@ -22,6 +22,7 @@ export interface RegisterData {
   email: string;
   password: string;
   name: string;
+  recaptchaToken?: string;
 }
 
 export interface AuthContextType {

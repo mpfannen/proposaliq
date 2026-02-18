@@ -1,6 +1,54 @@
 import { Request, Response } from 'express';
+import https from 'https';
 import jwt from 'jsonwebtoken';
 import UserModel from '../models/User';
+
+// Verify reCAPTCHA v3 token with Google
+async function verifyRecaptcha(token: string): Promise<boolean> {
+  const secret = process.env.RECAPTCHA_SECRET_KEY;
+  if (!secret) {
+    console.warn('⚠️  RECAPTCHA_SECRET_KEY not set — skipping bot check');
+    return true;
+  }
+
+  return new Promise((resolve) => {
+    const postData = `secret=${secret}&response=${token}`;
+    const options = {
+      hostname: 'www.google.com',
+      path: '/recaptcha/api/siteverify',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Content-Length': Buffer.byteLength(postData),
+      },
+    };
+
+    const req = https.request(options, (res) => {
+      let data = '';
+      res.on('data', (chunk) => (data += chunk));
+      res.on('end', () => {
+        try {
+          const result = JSON.parse(data);
+          const passed = result.success === true && (result.score ?? 0) >= 0.5;
+          if (!passed) {
+            console.warn('⚠️  reCAPTCHA failed — success:', result.success, 'score:', result.score);
+          }
+          resolve(passed);
+        } catch {
+          resolve(false);
+        }
+      });
+    });
+
+    req.on('error', (err) => {
+      console.error('❌ reCAPTCHA request error:', err.message);
+      // Fail open so a Google outage doesn't block all registrations
+      resolve(true);
+    });
+    req.write(postData);
+    req.end();
+  });
+}
 
 // Generate JWT token
 const generateToken = (userId: number): string => {
@@ -16,13 +64,23 @@ const generateToken = (userId: number): string => {
 export const register = async (req: Request, res: Response): Promise<void> => {
   console.log('🔵 Registration request received:', { email: req.body.email, name: req.body.name });
   try {
-    const { email, password, name } = req.body;
+    const { email, password, name, recaptchaToken } = req.body;
 
     // Validate input
     if (!email || !password || !name) {
       console.log('❌ Missing required fields');
       res.status(400).json({ message: 'Please provide all required fields' });
       return;
+    }
+
+    // Verify reCAPTCHA token (skipped if RECAPTCHA_SECRET_KEY is not set)
+    if (recaptchaToken) {
+      const isHuman = await verifyRecaptcha(recaptchaToken);
+      if (!isHuman) {
+        console.log('❌ reCAPTCHA check failed — possible bot');
+        res.status(400).json({ message: 'Bot detection check failed. Please try again.' });
+        return;
+      }
     }
 
     // Validate email format
