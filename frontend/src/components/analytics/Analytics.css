@@ -1,0 +1,432 @@
+.analytics-container {
+  min-height: 100vh;
+  background-color: #f5f7fa;
+}
+
+/* Nav — same style as MyProposals */
+.analytics-nav {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 16px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.analytics-nav .nav-brand h1 {
+  margin: 0;
+  font-size: 26px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-link {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  border: none;
+  padding: 7px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.nav-link:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.nav-link-home {
+  background: rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.nav-link-active {
+  background: rgba(255, 255, 255, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  font-weight: 700;
+}
+
+.nav-divider {
+  width: 1px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.3);
+  margin: 0 6px;
+}
+
+.nav-user {
+  font-size: 14px;
+  opacity: 0.9;
+  padding: 0 4px;
+}
+
+.btn-logout {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 2px solid white;
+  padding: 7px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.btn-logout:hover {
+  background: white;
+  color: #667eea;
+}
+
+/* Loading / Error */
+.analytics-loading,
+.analytics-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  gap: 16px;
+  color: #888;
+}
+
+.spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid #e1e5e9;
+  border-top-color: #667eea;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Content */
+.analytics-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.analytics-header {
+  margin-bottom: 32px;
+}
+
+.analytics-header h2 {
+  font-size: 32px;
+  color: #333;
+  margin: 0 0 6px 0;
+}
+
+.analytics-header p {
+  font-size: 15px;
+  color: #888;
+  margin: 0;
+}
+
+/* ── Key Metrics Grid ──────────────────────────────────────── */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-bottom: 28px;
+}
+
+.metric-card {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border-top: 4px solid #e1e5e9;
+}
+
+.metric-card.metric-value-won {
+  border-top-color: #667eea;
+}
+
+.metric-icon {
+  font-size: 28px;
+}
+
+.metric-value {
+  font-size: 36px;
+  font-weight: 700;
+  color: #333;
+  line-height: 1;
+}
+
+.metric-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.metric-sub {
+  font-size: 12px;
+  color: #aaa;
+}
+
+/* Win rate card color variants */
+.metric-rate.rate-high  { border-top-color: #4caf50; }
+.metric-rate.rate-medium { border-top-color: #ff9800; }
+.metric-rate.rate-low   { border-top-color: #ef5350; }
+
+.metric-rate.rate-high  .metric-value { color: #2e7d32; }
+.metric-rate.rate-medium .metric-value { color: #e65100; }
+.metric-rate.rate-low   .metric-value { color: #c62828; }
+
+/* ── Charts Grid ───────────────────────────────────────────── */
+.charts-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+
+.chart-card {
+  background: white;
+  border-radius: 12px;
+  padding: 28px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.chart-card h3 {
+  font-size: 18px;
+  color: #333;
+  margin: 0 0 20px 0;
+}
+
+.chart-empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: #aaa;
+}
+
+.chart-empty p {
+  margin: 0 0 6px 0;
+  font-size: 14px;
+}
+
+.chart-empty-sub {
+  font-size: 13px;
+  color: #bbb;
+}
+
+/* ── ROI Calculator ────────────────────────────────────────── */
+.roi-card {
+  background: linear-gradient(135deg, #667eea08 0%, #764ba208 100%);
+  border: 1px solid #e8eaff;
+}
+
+.roi-subtitle {
+  font-size: 13px;
+  color: #888;
+  margin: -12px 0 20px 0;
+}
+
+.roi-inputs {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.roi-input-group {
+  flex: 1;
+}
+
+.roi-input-group label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #666;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.roi-input-group input {
+  width: 100%;
+  padding: 9px 12px;
+  border: 2px solid #e1e5e9;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #333;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+
+.roi-input-group input:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.roi-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-top: 2px solid #f0f0f0;
+  padding-top: 16px;
+}
+
+.roi-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  font-size: 14px;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.roi-row span {
+  color: #555;
+}
+
+.roi-row em {
+  font-style: normal;
+  font-size: 12px;
+  color: #aaa;
+}
+
+.roi-row strong {
+  font-size: 15px;
+  color: #333;
+}
+
+.roi-row-divider {
+  border-top: 2px solid #e1e5e9;
+  margin-top: 8px;
+  padding-top: 18px;
+}
+
+.roi-cost {
+  color: #ef5350 !important;
+}
+
+.roi-total {
+  border-bottom: none;
+  margin-top: 4px;
+  padding-top: 12px;
+  border-top: 2px solid #333;
+}
+
+.roi-total span {
+  font-size: 15px;
+  font-weight: 700;
+  color: #333;
+}
+
+.roi-total strong {
+  font-size: 28px;
+  font-weight: 800;
+}
+
+.roi-positive { color: #2e7d32 !important; }
+.roi-negative { color: #c62828 !important; }
+
+/* ── Competitors Table ─────────────────────────────────────── */
+.competitors-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.competitors-table th {
+  text-align: left;
+  padding: 10px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: #fafafa;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.competitors-table td {
+  padding: 12px;
+  border-bottom: 1px solid #f5f5f5;
+  color: #333;
+  vertical-align: middle;
+}
+
+.competitors-table tr:last-child td {
+  border-bottom: none;
+}
+
+.rank-cell {
+  width: 36px;
+  color: #aaa;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.competitor-count {
+  display: inline-block;
+  background: #ffebee;
+  color: #c62828;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 10px;
+  font-size: 13px;
+  margin-right: 8px;
+}
+
+.competitor-bar {
+  display: inline-block;
+  height: 6px;
+  background: #ef5350;
+  border-radius: 3px;
+  vertical-align: middle;
+  opacity: 0.4;
+}
+
+/* ── Responsive ────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .analytics-nav {
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px 20px;
+  }
+
+  .nav-links {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .metrics-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .charts-row {
+    grid-template-columns: 1fr;
+  }
+
+  .roi-inputs {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .metrics-grid {
+    grid-template-columns: 1fr;
+  }
+}

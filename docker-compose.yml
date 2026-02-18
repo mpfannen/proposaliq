@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: proposaliq-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: proposaliq
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: proposaliq_dev_password_2024
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      # Automatically run schema on first start
+      - ./backend/src/models/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
+    driver: local
