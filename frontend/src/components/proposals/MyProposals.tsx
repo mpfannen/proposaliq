@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import proposalService, { ProposalDetail } from '../../services/proposalService';
+import { printProposal } from '../../utils/printProposal';
 import './MyProposals.css';
 
 const STATUS_FILTERS = ['All', 'draft', 'generating', 'completed'];
@@ -272,6 +273,14 @@ const MyProposals: React.FC = () => {
                       <td className="actions-cell">
                         <button className="btn-view" onClick={() => navigate(`/proposal/${proposal.id}`)}>View</button>
                         <button className="btn-edit" onClick={() => navigate(`/proposal/${proposal.id}`)}>Edit</button>
+                        <button
+                          className="btn-print"
+                          onClick={() => printProposal(proposal)}
+                          disabled={!proposal.proposal_response}
+                          title={!proposal.proposal_response ? 'Generate a response first' : 'Print proposal'}
+                        >
+                          Print
+                        </button>
                         <button
                           className="btn-delete"
                           onClick={() => handleDelete(proposal.id, proposal.rfp_filename)}

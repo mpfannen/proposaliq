@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import proposalService, { ProposalDetail as ProposalType } from '../../services/proposalService';
+import { printProposal } from '../../utils/printProposal';
 import './ProposalDetail.css';
 
 const ProposalDetail: React.FC = () => {
@@ -168,6 +169,14 @@ const ProposalDetail: React.FC = () => {
                 ? '🔄 Regenerate Response'
                 : '🤖 Generate Response'
             }
+          </button>
+          <button
+            className="btn-print-detail"
+            onClick={() => printProposal(proposal)}
+            disabled={!proposal.proposal_response}
+            title={!proposal.proposal_response ? 'Generate a response first' : 'Print proposal'}
+          >
+            🖨️ Print
           </button>
           <button onClick={() => navigate('/proposals')} className="btn-secondary">
             Close
