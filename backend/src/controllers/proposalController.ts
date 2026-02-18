@@ -168,7 +168,7 @@ export const getUserProposals = async (req: Request, res: Response): Promise<voi
 // @access  Private
 export const updateProposal = async (req: Request, res: Response): Promise<void> => {
   try {
-    const proposalId = parseInt(req.params.id);
+    const proposalId = parseInt(req.params.id as string);
     const userId = (req as any).user?.id;
 
     const proposal = await ProposalModel.findById(proposalId);
@@ -196,7 +196,7 @@ export const updateProposal = async (req: Request, res: Response): Promise<void>
 // @access  Private
 export const deleteProposal = async (req: Request, res: Response): Promise<void> => {
   try {
-    const proposalId = parseInt(req.params.id);
+    const proposalId = parseInt(req.params.id as string);
     const userId = (req as any).user?.id;
 
     const proposal = await ProposalModel.findById(proposalId);
@@ -313,7 +313,7 @@ export const generateResponse = async (req: Request, res: Response): Promise<voi
 // @access  Private
 export const updateOutcome = async (req: Request, res: Response): Promise<void> => {
   try {
-    const proposalId = parseInt(req.params.id);
+    const proposalId = parseInt(req.params.id as string);
     const userId = (req as any).user?.id;
     const { outcome, contract_value, competitor_lost_to, loss_reason, loss_notes } = req.body;
 

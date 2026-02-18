@@ -105,7 +105,7 @@ export const getDocuments = async (req: Request, res: Response): Promise<void> =
 // @access  Private
 export const deleteDocument = async (req: Request, res: Response): Promise<void> => {
   try {
-    const docId = parseInt(req.params.id);
+    const docId = parseInt(req.params.id as string);
     const userId = (req as any).user?.id;
 
     const deleted = await KnowledgeBaseModel.delete(docId, userId);
