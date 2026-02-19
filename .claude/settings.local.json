@@ -18,7 +18,11 @@
       "Bash(echo:*)",
       "Bash(dir:*)",
       "Bash(findstr:*)",
-      "Bash(cmd /c \"dir C:\\\\Users\\\\mpfan\\\\Desktop\")"
+      "Bash(cmd /c \"dir C:\\\\Users\\\\mpfan\\\\Desktop\")",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(powershell -Command:*)",
+      "Bash(git add:*)"
     ]
   }
 }

@@ -1,7 +1,10 @@
 import { Request, Response } from 'express';
 import https from 'https';
+import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 import UserModel from '../models/User';
+import pool from '../config/database';
+import { sendPasswordResetEmail } from '../services/emailService';
 
 // Verify reCAPTCHA v3 token with Google
 async function verifyRecaptcha(token: string): Promise<boolean> {
@@ -258,6 +261,82 @@ export const updatePassword = async (req: Request, res: Response): Promise<void>
   } catch (error: any) {
     console.error('❌ Update password error:', error.message);
     res.status(500).json({ success: false, message: 'Failed to update password' });
+  }
+};
+
+// @desc    Send password reset email
+// @route   POST /api/auth/forgot-password
+// @access  Public
+export const forgotPassword = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { email } = req.body;
+    if (!email) {
+      res.status(400).json({ message: 'Email is required' });
+      return;
+    }
+
+    const user = await UserModel.findByEmail(email);
+
+    // Always return success to prevent email enumeration
+    if (!user) {
+      res.status(200).json({ success: true, message: 'If that email is registered, a reset link has been sent.' });
+      return;
+    }
+
+    // Delete any existing tokens for this user
+    await pool.query('DELETE FROM password_reset_tokens WHERE user_id = $1', [user.id]);
+
+    // Generate a secure random token
+    const token = crypto.randomBytes(32).toString('hex');
+    const expiresAt = new Date(Date.now() + 60 * 60 * 1000); // 1 hour
+
+    await pool.query(
+      'INSERT INTO password_reset_tokens (user_id, token, expires_at) VALUES ($1, $2, $3)',
+      [user.id, token, expiresAt]
+    );
+
+    await sendPasswordResetEmail(user.email, token);
+
+    res.status(200).json({ success: true, message: 'If that email is registered, a reset link has been sent.' });
+  } catch (error: any) {
+    console.error('❌ Forgot password error:', error.message);
+    res.status(500).json({ success: false, message: 'Server error' });
+  }
+};
+
+// @desc    Reset password using token
+// @route   POST /api/auth/reset-password
+// @access  Public
+export const resetPassword = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { token, password } = req.body;
+    if (!token || !password) {
+      res.status(400).json({ message: 'Token and password are required' });
+      return;
+    }
+    if (password.length < 6) {
+      res.status(400).json({ message: 'Password must be at least 6 characters' });
+      return;
+    }
+
+    const result = await pool.query(
+      'SELECT * FROM password_reset_tokens WHERE token = $1 AND expires_at > NOW()',
+      [token]
+    );
+
+    if (result.rows.length === 0) {
+      res.status(400).json({ message: 'Invalid or expired reset link. Please request a new one.' });
+      return;
+    }
+
+    const { user_id } = result.rows[0];
+    await UserModel.updatePassword(user_id, password);
+    await pool.query('DELETE FROM password_reset_tokens WHERE token = $1', [token]);
+
+    res.status(200).json({ success: true, message: 'Password has been reset successfully.' });
+  } catch (error: any) {
+    console.error('❌ Reset password error:', error.message);
+    res.status(500).json({ success: false, message: 'Server error' });
   }
 };
 

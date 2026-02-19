@@ -54,6 +54,18 @@ const authService = {
     return response.data;
   },
 
+  // Request password reset email
+  forgotPassword: async (email: string) => {
+    const response = await axios.post(`${API_URL}/api/auth/forgot-password`, { email });
+    return response.data;
+  },
+
+  // Reset password using token from email link
+  resetPassword: async (token: string, password: string) => {
+    const response = await axios.post(`${API_URL}/api/auth/reset-password`, { token, password });
+    return response.data;
+  },
+
   // Change password
   updatePassword: async (currentPassword: string, newPassword: string) => {
     const token = localStorage.getItem('token');

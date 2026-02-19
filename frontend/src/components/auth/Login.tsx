@@ -67,6 +67,10 @@ const Login: React.FC = () => {
             />
           </div>
 
+          <div className="forgot-password-link">
+            <Link to="/forgot-password">Forgot password?</Link>
+          </div>
+
           <button type="submit" className="btn-primary" disabled={isLoading}>
             {isLoading ? 'Logging in...' : 'Login'}
           </button>
