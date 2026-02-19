@@ -148,7 +148,6 @@
 .text-preview pre {
   white-space: pre-wrap;
   word-wrap: break-word;
-  font-family: 'Courier New', monospace;
   font-size: 14px;
   line-height: 1.6;
   color: #333;

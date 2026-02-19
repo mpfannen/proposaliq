@@ -6,11 +6,19 @@
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Arial', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+    'Helvetica Neue', Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Form elements and pre do not inherit font-family by default in browsers */
+input,
+textarea,
+select,
+button,
+pre {
+  font-family: inherit;
 }
 
 code {
