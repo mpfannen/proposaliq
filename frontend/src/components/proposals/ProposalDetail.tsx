@@ -135,15 +135,13 @@ const ProposalDetail: React.FC = () => {
 
         <div className="proposal-content">
           <h2>Extracted RFP Text</h2>
-          {proposal.rfp_text ? (
-            <div className="markdown-body">
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                {proposal.rfp_text}
-              </ReactMarkdown>
-            </div>
-          ) : (
-            <p className="no-text">No text extracted</p>
-          )}
+          <div className="text-preview">
+            {proposal.rfp_text ? (
+              <pre>{proposal.rfp_text}</pre>
+            ) : (
+              <p className="no-text">No text extracted</p>
+            )}
+          </div>
         </div>
 
         {proposal.proposal_response && (
