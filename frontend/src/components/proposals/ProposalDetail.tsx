@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import proposalService, { ProposalDetail as ProposalType } from '../../services/proposalService';
 import { printProposal } from '../../utils/printProposal';
 import './ProposalDetail.css';
@@ -145,8 +147,10 @@ const ProposalDetail: React.FC = () => {
         {proposal.proposal_response && (
           <div className="proposal-content">
             <h2>AI-Generated Proposal Response</h2>
-            <div className="text-preview">
-              <pre>{proposal.proposal_response}</pre>
+            <div className="markdown-body">
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                {proposal.proposal_response}
+              </ReactMarkdown>
             </div>
           </div>
         )}
