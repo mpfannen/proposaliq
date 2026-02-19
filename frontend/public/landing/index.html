@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ProposalIQ – Win More RFPs with AI-Powered Proposals</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .gradient-brand   { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+    .gradient-text    { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+                        background-clip: text; }
+    .card-hover       { transition: transform 0.2s, box-shadow 0.2s; }
+    .card-hover:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(102,126,234,0.15); }
+    html              { scroll-behavior: smooth; }
+  </style>
+</head>
+<body class="font-sans antialiased text-gray-800 bg-white">
+
+<!-- ═══════════════════════════════════════════════════════ 1. NAV -->
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-gray-100 shadow-sm">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="text-2xl font-extrabold gradient-text">ProposalIQ</span>
+      <span class="text-xs bg-purple-100 text-purple-700 font-semibold px-2 py-0.5 rounded-full ml-1">BETA</span>
+    </div>
+    <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-600">
+      <a href="#features"  class="hover:text-purple-600 transition-colors">Features</a>
+      <a href="#how"       class="hover:text-purple-600 transition-colors">How It Works</a>
+      <a href="#pricing"   class="hover:text-purple-600 transition-colors">Pricing</a>
+    </nav>
+    <div class="flex items-center gap-3">
+      <a href="http://localhost:3000/login"
+         class="text-sm font-semibold text-gray-600 hover:text-purple-600 transition-colors px-3 py-2">
+        Login
+      </a>
+      <a href="http://localhost:3000/register"
+         class="gradient-brand text-white text-sm font-semibold px-5 py-2.5 rounded-lg hover:opacity-90 transition-opacity shadow-md">
+        Start Free Trial
+      </a>
+    </div>
+  </div>
+</header>
+
+
+<!-- ═══════════════════════════════════════════════════════ 2. HERO -->
+<section class="gradient-brand text-white pt-20 pb-32 px-6 overflow-hidden relative">
+  <!-- Background circles decoration -->
+  <div class="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/3"></div>
+  <div class="absolute bottom-0 left-0 w-64 h-64 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/4"></div>
+
+  <div class="max-w-6xl mx-auto relative">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <div class="inline-block bg-white/15 border border-white/30 text-white text-sm font-semibold px-4 py-1.5 rounded-full mb-6">
+        🎉 Beta users get 50% off forever
+      </div>
+      <h1 class="text-5xl md:text-6xl font-extrabold leading-tight mb-6">
+        Win More RFPs with<br/>
+        <span class="text-yellow-300">AI-Powered Proposals</span>
+      </h1>
+      <p class="text-xl text-purple-100 mb-10 leading-relaxed">
+        Architecture &amp; design firms respond to RFPs <strong class="text-white">2× faster</strong> with intelligent proposal generation, win/loss tracking, and actionable analytics.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="http://localhost:3000/register"
+           class="bg-white text-purple-700 font-bold px-8 py-4 rounded-xl text-lg shadow-xl hover:shadow-2xl hover:-translate-y-0.5 transition-all">
+          Start Free Trial →
+        </a>
+        <a href="#how"
+           class="bg-white/15 border border-white/40 text-white font-semibold px-8 py-4 rounded-xl text-lg hover:bg-white/25 transition-colors">
+          See How It Works
+        </a>
+      </div>
+      <p class="mt-4 text-purple-200 text-sm">No credit card required · Cancel anytime</p>
+    </div>
+
+    <!-- Mock App Screenshot -->
+    <div class="max-w-4xl mx-auto">
+      <div class="bg-white rounded-2xl shadow-2xl overflow-hidden border border-white/20">
+        <!-- Browser bar -->
+        <div class="bg-gray-100 px-4 py-3 flex items-center gap-2 border-b border-gray-200">
+          <div class="w-3 h-3 rounded-full bg-red-400"></div>
+          <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+          <div class="w-3 h-3 rounded-full bg-green-400"></div>
+          <div class="ml-3 bg-white border border-gray-200 rounded px-3 py-1 text-xs text-gray-400 flex-1 max-w-sm">
+            app.proposaliq.io/analytics
+          </div>
+        </div>
+        <!-- Mock app nav -->
+        <div class="gradient-brand px-6 py-3 flex items-center justify-between">
+          <span class="text-white font-bold text-lg">ProposalIQ</span>
+          <div class="flex gap-4 text-white/80 text-sm">
+            <span>My Proposals</span>
+            <span class="text-white font-semibold border-b border-white pb-0.5">Analytics</span>
+            <span>Knowledge Base</span>
+          </div>
+        </div>
+        <!-- Mock analytics content -->
+        <div class="bg-gray-50 p-6">
+          <div class="grid grid-cols-4 gap-4 mb-6">
+            <div class="bg-white rounded-xl p-4 shadow-sm">
+              <div class="text-2xl mb-1">📋</div>
+              <div class="text-2xl font-bold text-gray-800">24</div>
+              <div class="text-xs text-gray-500 uppercase font-semibold">Total Proposals</div>
+            </div>
+            <div class="bg-white rounded-xl p-4 shadow-sm border-t-4 border-green-500">
+              <div class="text-2xl mb-1">🎯</div>
+              <div class="text-2xl font-bold text-green-600">58%</div>
+              <div class="text-xs text-gray-500 uppercase font-semibold">Win Rate</div>
+            </div>
+            <div class="bg-white rounded-xl p-4 shadow-sm border-t-4 border-purple-500">
+              <div class="text-2xl mb-1">💰</div>
+              <div class="text-2xl font-bold text-gray-800">$1.2M</div>
+              <div class="text-xs text-gray-500 uppercase font-semibold">Value Won</div>
+            </div>
+            <div class="bg-white rounded-xl p-4 shadow-sm">
+              <div class="text-2xl mb-1">⏳</div>
+              <div class="text-2xl font-bold text-gray-800">4</div>
+              <div class="text-xs text-gray-500 uppercase font-semibold">Pending</div>
+            </div>
+          </div>
+          <!-- Mock chart bars -->
+          <div class="bg-white rounded-xl p-5 shadow-sm">
+            <div class="text-sm font-semibold text-gray-700 mb-3">📉 Why You're Losing</div>
+            <div class="space-y-2.5">
+              <div class="flex items-center gap-3">
+                <span class="text-xs text-gray-500 w-32 text-right">Price too high</span>
+                <div class="flex-1 bg-gray-100 rounded-full h-3"><div class="bg-red-400 h-3 rounded-full" style="width:75%"></div></div>
+                <span class="text-xs font-bold text-gray-600">8</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="text-xs text-gray-500 w-32 text-right">Lacked experience</span>
+                <div class="flex-1 bg-gray-100 rounded-full h-3"><div class="bg-red-400 h-3 rounded-full" style="width:47%"></div></div>
+                <span class="text-xs font-bold text-gray-600">5</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="text-xs text-gray-500 w-32 text-right">Timeline issues</span>
+                <div class="flex-1 bg-gray-100 rounded-full h-3"><div class="bg-red-400 h-3 rounded-full" style="width:28%"></div></div>
+                <span class="text-xs font-bold text-gray-600">3</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════ 3. PROBLEM -->
+<section class="py-20 px-6 bg-white">
+  <div class="max-w-4xl mx-auto text-center">
+    <p class="text-sm font-semibold text-purple-600 uppercase tracking-widest mb-3">The Problem</p>
+    <h2 class="text-4xl font-extrabold text-gray-900 mb-6">
+      Stop spending <span class="gradient-text">8+ hours</span> on every RFP response
+    </h2>
+    <p class="text-lg text-gray-500 mb-14">
+      Architecture and design firms waste hundreds of hours on proposals that never get analyzed or improved.
+    </p>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="bg-red-50 border border-red-100 rounded-2xl p-8 text-left">
+        <div class="text-4xl mb-4">⏰</div>
+        <h3 class="text-lg font-bold text-gray-900 mb-2">Writing from scratch every time</h3>
+        <p class="text-gray-500 text-sm leading-relaxed">
+          Your team rewrites the same sections proposal after proposal instead of focusing on winning strategy.
+        </p>
+      </div>
+      <div class="bg-red-50 border border-red-100 rounded-2xl p-8 text-left">
+        <div class="text-4xl mb-4">📊</div>
+        <h3 class="text-lg font-bold text-gray-900 mb-2">No idea what's working</h3>
+        <p class="text-gray-500 text-sm leading-relaxed">
+          Lost proposals disappear into a black hole. You don't know why you're losing or who you're losing to.
+        </p>
+      </div>
+      <div class="bg-red-50 border border-red-100 rounded-2xl p-8 text-left">
+        <div class="text-4xl mb-4">🏆</div>
+        <h3 class="text-lg font-bold text-gray-900 mb-2">Losing to better-written bids</h3>
+        <p class="text-gray-500 text-sm leading-relaxed">
+          Competitors with bigger teams produce more polished proposals — even when your firm is the better choice.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════ 4. FEATURES -->
+<section id="features" class="py-20 px-6 bg-gray-50">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-16">
+      <p class="text-sm font-semibold text-purple-600 uppercase tracking-widest mb-3">Features</p>
+      <h2 class="text-4xl font-extrabold text-gray-900">Everything you need to win more RFPs</h2>
+    </div>
+    <div class="grid md:grid-cols-3 gap-8">
+
+      <div class="bg-white rounded-2xl p-8 shadow-sm card-hover">
+        <div class="w-14 h-14 gradient-brand rounded-2xl flex items-center justify-center text-2xl mb-6 shadow-lg">📄</div>
+        <h3 class="text-xl font-bold text-gray-900 mb-3">Upload &amp; Analyze RFPs</h3>
+        <p class="text-gray-500 leading-relaxed mb-4">
+          Drop in a PDF or Word doc. ProposalIQ instantly extracts all requirements, deadlines, and evaluation criteria.
+        </p>
+        <ul class="space-y-2 text-sm text-gray-500">
+          <li class="flex items-center gap-2"><span class="text-green-500 font-bold">✓</span> PDF, DOC, DOCX support</li>
+          <li class="flex items-center gap-2"><span class="text-green-500 font-bold">✓</span> Automatic text extraction</li>
+          <li class="flex items-center gap-2"><span class="text-green-500 font-bold">✓</span> Requirements identified</li>
+        </ul>
+      </div>
+
+      <div class="bg-white rounded-2xl p-8 shadow-sm card-hover">
+        <div class="w-14 h-14 gradient-brand rounded-2xl flex items-center justify-center text-2xl mb-6 shadow-lg">🤖</div>
+        <h3 class="text-xl font-bold text-gray-900 mb-3">AI-Powered Responses</h3>
+        <p class="text-gray-500 leading-relaxed mb-4">
+          Generate a complete proposal draft using your own company knowledge base — case studies, team bios, pricing, and more.
+        </p>
+        <ul class="space-y-2 text-sm text-gray-500">
+          <li class="flex items-center gap-2"><span class="text-green-500 font-bold">✓</span> Powered by Claude AI</li>
+          <li class="flex items-center gap-2"><span class="text-green-500 font-bold">✓</span> Uses your knowledge base</li>
+          <li class="flex items-center gap-2"><span class="text-green-500 font-bold">✓</span> Customized every time</li>
+        </ul>
+      </div>
+
+      <div class="bg-white rounded-2xl p-8 shadow-sm card-hover">
+        <div class="w-14 h-14 gradient-brand rounded-2xl flex items-center justify-center text-2xl mb-6 shadow-lg">📊</div>
+        <h3 class="text-xl font-bold text-gray-900 mb-3">Win/Loss Analytics</h3>
+        <p class="text-gray-500 leading-relaxed mb-4">
+          Track every outcome. See why you're losing, who you're losing to, and what types of projects you win most often.
+        </p>
+        <ul class="space-y-2 text-sm text-gray-500">
+          <li class="flex items-center gap-2"><span class="text-green-500 font-bold">✓</span> Structured loss reasons</li>
+          <li class="flex items-center gap-2"><span class="text-green-500 font-bold">✓</span> Competitor tracking</li>
+          <li class="flex items-center gap-2"><span class="text-green-500 font-bold">✓</span> Trend charts &amp; ROI calc</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════ 5. HOW IT WORKS -->
+<section id="how" class="py-20 px-6 bg-white">
+  <div class="max-w-4xl mx-auto">
+    <div class="text-center mb-16">
+      <p class="text-sm font-semibold text-purple-600 uppercase tracking-widest mb-3">How It Works</p>
+      <h2 class="text-4xl font-extrabold text-gray-900">From RFP to proposal in minutes</h2>
+    </div>
+    <div class="relative">
+      <!-- Connector line -->
+      <div class="hidden md:block absolute top-10 left-1/2 -translate-x-1/2 w-0.5 h-full bg-gradient-to-b from-purple-200 to-purple-50 -z-10"></div>
+
+      <div class="space-y-12">
+
+        <div class="flex flex-col md:flex-row items-center gap-8">
+          <div class="md:w-1/2 text-center md:text-right order-2 md:order-1">
+            <h3 class="text-2xl font-bold text-gray-900 mb-3">1. Upload your RFP</h3>
+            <p class="text-gray-500 leading-relaxed">
+              Drag and drop a PDF or Word document. ProposalIQ extracts all the text and requirements in seconds — no copying and pasting required.
+            </p>
+          </div>
+          <div class="flex-shrink-0 w-20 h-20 gradient-brand rounded-2xl flex items-center justify-center text-4xl shadow-xl order-1 md:order-2">
+            📤
+          </div>
+          <div class="md:w-1/2 order-3"></div>
+        </div>
+
+        <div class="flex flex-col md:flex-row items-center gap-8">
+          <div class="md:w-1/2 order-3 md:order-1"></div>
+          <div class="flex-shrink-0 w-20 h-20 gradient-brand rounded-2xl flex items-center justify-center text-4xl shadow-xl order-1 md:order-2">
+            🤖
+          </div>
+          <div class="md:w-1/2 text-center md:text-left order-2 md:order-3">
+            <h3 class="text-2xl font-bold text-gray-900 mb-3">2. AI generates your response</h3>
+            <p class="text-gray-500 leading-relaxed">
+              Claude AI reads the RFP and your knowledge base — company overview, case studies, team bios — and generates a complete, customized proposal draft.
+            </p>
+          </div>
+        </div>
+
+        <div class="flex flex-col md:flex-row items-center gap-8">
+          <div class="md:w-1/2 text-center md:text-right order-2 md:order-1">
+            <h3 class="text-2xl font-bold text-gray-900 mb-3">3. Track outcomes &amp; improve</h3>
+            <p class="text-gray-500 leading-relaxed">
+              Mark proposals as Won or Lost. Record reasons and competitors. Your analytics dashboard reveals what's working and where to improve.
+            </p>
+          </div>
+          <div class="flex-shrink-0 w-20 h-20 gradient-brand rounded-2xl flex items-center justify-center text-4xl shadow-xl order-1 md:order-2">
+            📈
+          </div>
+          <div class="md:w-1/2 order-3"></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════ 6. PRICING -->
+<section id="pricing" class="py-20 px-6 bg-gray-50">
+  <div class="max-w-5xl mx-auto">
+    <div class="text-center mb-6">
+      <p class="text-sm font-semibold text-purple-600 uppercase tracking-widest mb-3">Pricing</p>
+      <h2 class="text-4xl font-extrabold text-gray-900 mb-4">Simple, transparent pricing</h2>
+      <div class="inline-flex items-center gap-2 bg-yellow-100 border border-yellow-300 text-yellow-800 font-semibold text-sm px-5 py-2 rounded-full">
+        🎉 Beta offer: 50% off forever for early users
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8 mt-12">
+
+      <!-- Solo -->
+      <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 card-hover">
+        <h3 class="text-xl font-bold text-gray-900 mb-1">Solo</h3>
+        <p class="text-sm text-gray-400 mb-6">For independent architects</p>
+        <div class="mb-6">
+          <span class="text-5xl font-extrabold text-gray-900">$99</span>
+          <span class="text-gray-400">/month</span>
+          <div class="text-sm text-green-600 font-semibold mt-1">Beta: $49/month</div>
+        </div>
+        <ul class="space-y-3 text-sm text-gray-600 mb-8">
+          <li class="flex items-center gap-2"><span class="text-green-500">✓</span> 1 user</li>
+          <li class="flex items-center gap-2"><span class="text-green-500">✓</span> Unlimited proposals</li>
+          <li class="flex items-center gap-2"><span class="text-green-500">✓</span> AI response generation</li>
+          <li class="flex items-center gap-2"><span class="text-green-500">✓</span> Win/loss tracking</li>
+          <li class="flex items-center gap-2"><span class="text-green-500">✓</span> Analytics dashboard</li>
+          <li class="flex items-center gap-2"><span class="text-green-500">✓</span> 5 knowledge base docs</li>
+        </ul>
+        <a href="http://localhost:3000/register"
+           class="block text-center border-2 border-purple-600 text-purple-600 font-bold py-3 rounded-xl hover:bg-purple-50 transition-colors">
+          Start Free Trial
+        </a>
+      </div>
+
+      <!-- Studio (Popular) -->
+      <div class="relative bg-white rounded-2xl p-8 shadow-xl border-2 border-purple-500 card-hover">
+        <div class="absolute -top-4 left-1/2 -translate-x-1/2">
+          <span class="gradient-brand text-white text-xs font-extrabold px-5 py-1.5 rounded-full shadow-lg uppercase tracking-wider">
+            Most Popular
+          </span>
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-1">Studio</h3>
+        <p class="text-sm text-gray-400 mb-6">For small design firms</p>
+        <div class="mb-6">
+          <span class="text-5xl font-extrabold text-gray-900">$199</span>
+          <span class="text-gray-400">/month</span>
+          <div class="text-sm text-green-600 font-semibold mt-1">Beta: $99/month</div>
+        </div>
+        <ul class="space-y-3 text-sm text-gray-600 mb-8">
+          <li class="flex items-center gap-2"><span class="text-green-500">✓</span> 3 users</li>
+          <li class="flex items-center gap-2"><span class="text-green-500">✓</span> Unlimited proposals</li>
+          <li class="flex items-center gap-2"><span class="text-green-500">✓</span> AI response generation</li>
+          <li class="flex items-center gap-2"><span class="text-green-500">✓</span> Win/loss tracking</li>
+          <li class="flex items-center gap-2"><span class="text-green-500">✓</span> Advanced analytics</li>
+          <li class="flex items-center gap-2"><span class="text-green-500">✓</span> 20 knowledge base docs</li>
+          <li class="flex items-center gap-2"><span class="text-green-500">✓</span> Priority support</li>
+        </ul>
+        <a href="http://localhost:3000/register"
+           class="block text-center gradient-brand text-white font-bold py-3 rounded-xl hover:opacity-90 transition-opacity shadow-md">
+          Start Free Trial
+        </a>
+      </div>
+
+      <!-- Firm -->
+      <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 card-hover">
+        <h3 class="text-xl font-bold text-gray-900 mb-1">Firm</h3>
+        <p class="text-sm text-gray-400 mb-6">For larger architecture firms</p>
+        <div class="mb-6">
+          <span class="text-5xl font-extrabold text-gray-900">$399</span>
+          <span class="text-gray-400">/month</span>
+          <div class="text-sm text-green-600 font-semibold mt-1">Beta: $199/month</div>
+        </div>
+        <ul class="space-y-3 text-sm text-gray-600 mb-8">
+          <li class="flex items-center gap-2"><span class="text-green-500">✓</span> 10 users</li>
+          <li class="flex items-center gap-2"><span class="text-green-500">✓</span> Unlimited proposals</li>
+          <li class="flex items-center gap-2"><span class="text-green-500">✓</span> AI response generation</li>
+          <li class="flex items-center gap-2"><span class="text-green-500">✓</span> Win/loss tracking</li>
+          <li class="flex items-center gap-2"><span class="text-green-500">✓</span> Advanced analytics</li>
+          <li class="flex items-center gap-2"><span class="text-green-500">✓</span> Unlimited knowledge base</li>
+          <li class="flex items-center gap-2"><span class="text-green-500">✓</span> Dedicated support</li>
+        </ul>
+        <a href="http://localhost:3000/register"
+           class="block text-center border-2 border-purple-600 text-purple-600 font-bold py-3 rounded-xl hover:bg-purple-50 transition-colors">
+          Start Free Trial
+        </a>
+      </div>
+
+    </div>
+    <p class="text-center text-gray-400 text-sm mt-8">All plans include a 14-day free trial. No credit card required.</p>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════ 7. SOCIAL PROOF -->
+<section class="py-20 px-6 bg-white">
+  <div class="max-w-4xl mx-auto text-center">
+    <p class="text-sm font-semibold text-purple-600 uppercase tracking-widest mb-3">Social Proof</p>
+    <h2 class="text-4xl font-extrabold text-gray-900 mb-4">
+      Join architecture firms already using ProposalIQ
+    </h2>
+    <p class="text-gray-400 mb-14 text-lg">Trusted by firms who take winning seriously</p>
+
+    <!-- Placeholder logo strip -->
+    <div class="flex flex-wrap justify-center items-center gap-10 mb-16 opacity-40 grayscale">
+      <div class="bg-gray-200 rounded-lg px-8 py-4 text-gray-600 font-bold text-lg">Firm A</div>
+      <div class="bg-gray-200 rounded-lg px-8 py-4 text-gray-600 font-bold text-lg">Studio B</div>
+      <div class="bg-gray-200 rounded-lg px-8 py-4 text-gray-600 font-bold text-lg">Architects C</div>
+      <div class="bg-gray-200 rounded-lg px-8 py-4 text-gray-600 font-bold text-lg">Design Co</div>
+      <div class="bg-gray-200 rounded-lg px-8 py-4 text-gray-600 font-bold text-lg">Group E</div>
+    </div>
+
+    <!-- Placeholder testimonials -->
+    <div class="grid md:grid-cols-2 gap-8">
+      <div class="bg-gray-50 border border-gray-100 rounded-2xl p-8 text-left">
+        <div class="flex gap-1 mb-4 text-yellow-400">★★★★★</div>
+        <p class="text-gray-700 italic mb-6 leading-relaxed">
+          "ProposalIQ cut our RFP response time in half. We used to dread RFP season — now it's just another day."
+        </p>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 gradient-brand rounded-full flex items-center justify-center text-white font-bold">S</div>
+          <div>
+            <div class="font-semibold text-gray-900">Sarah M.</div>
+            <div class="text-sm text-gray-400">Principal, Architectural Studio</div>
+          </div>
+        </div>
+      </div>
+      <div class="bg-gray-50 border border-gray-100 rounded-2xl p-8 text-left">
+        <div class="flex gap-1 mb-4 text-yellow-400">★★★★★</div>
+        <p class="text-gray-700 italic mb-6 leading-relaxed">
+          "The loss analytics alone are worth it. We discovered 40% of our losses were price-related — we adjusted our strategy and win rate jumped immediately."
+        </p>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 gradient-brand rounded-full flex items-center justify-center text-white font-bold">J</div>
+          <div>
+            <div class="font-semibold text-gray-900">James K.</div>
+            <div class="text-sm text-gray-400">BD Director, Design Firm</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════ 8. FINAL CTA -->
+<section class="gradient-brand py-24 px-6 text-white text-center relative overflow-hidden">
+  <div class="absolute top-0 left-0 w-72 h-72 bg-white/5 rounded-full -translate-y-1/2 -translate-x-1/3"></div>
+  <div class="absolute bottom-0 right-0 w-96 h-96 bg-white/5 rounded-full translate-y-1/2 translate-x-1/3"></div>
+  <div class="max-w-2xl mx-auto relative">
+    <h2 class="text-4xl md:text-5xl font-extrabold mb-4">Ready to win more RFPs?</h2>
+    <p class="text-purple-100 text-xl mb-10">
+      Start your free trial today. Set up takes less than 5 minutes.
+    </p>
+    <a href="http://localhost:3000/register"
+       class="inline-block bg-white text-purple-700 font-extrabold px-10 py-5 rounded-xl text-xl shadow-2xl hover:shadow-3xl hover:-translate-y-1 transition-all">
+      Start Free Trial →
+    </a>
+    <p class="mt-5 text-purple-200 text-sm">No credit card required · Beta users get 50% off forever</p>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════ 9. FOOTER -->
+<footer class="bg-gray-900 text-gray-400 py-12 px-6">
+  <div class="max-w-6xl mx-auto">
+    <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+      <div>
+        <span class="text-2xl font-extrabold text-white">ProposalIQ</span>
+        <p class="text-sm mt-1">AI-powered RFP proposals for architecture &amp; design firms.</p>
+      </div>
+      <div class="flex flex-wrap justify-center gap-6 text-sm">
+        <a href="mailto:hello@proposaliq.io" class="hover:text-white transition-colors">hello@proposaliq.io</a>
+        <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+        <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+      </div>
+    </div>
+    <div class="border-t border-gray-800 mt-8 pt-8 text-center text-xs text-gray-600">
+      © 2025 ProposalIQ. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
