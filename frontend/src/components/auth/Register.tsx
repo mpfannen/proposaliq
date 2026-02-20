@@ -77,18 +77,29 @@ const Register: React.FC = () => {
     setError('');
 
     // Validation
-    if (!name || !email || !password || !confirmPassword) {
+    if (!name.trim() || !email.trim() || !password || !confirmPassword) {
       setError('Please fill in all fields');
+      return;
+    }
+
+    if (name.trim().length < 2) {
+      setError('Please enter your full name (at least 2 characters)');
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email.trim())) {
+      setError('Please enter a valid email address');
+      return;
+    }
+
+    if (password.length < 8) {
+      setError('Password must be at least 8 characters long');
       return;
     }
 
     if (password !== confirmPassword) {
       setError('Passwords do not match');
-      return;
-    }
-
-    if (password.length < 6) {
-      setError('Password must be at least 6 characters long');
       return;
     }
 
@@ -146,7 +157,7 @@ const Register: React.FC = () => {
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="Enter your password (min 6 characters)"
+              placeholder="Enter your password (min 8 characters)"
               disabled={isLoading}
               required
             />

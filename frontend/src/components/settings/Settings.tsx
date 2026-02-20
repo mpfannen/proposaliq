@@ -62,6 +62,14 @@ const AccountSection: React.FC = () => {
     setProfileMsg('');
     if (!name.trim() && !email.trim()) return;
 
+    if (email.trim()) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email.trim())) {
+        setProfileErr('Please enter a valid email address');
+        return;
+      }
+    }
+
     setProfileSaving(true);
     try {
       const res = await authService.updateProfile({ name: name.trim(), email: email.trim() });
@@ -85,8 +93,8 @@ const AccountSection: React.FC = () => {
       setPasswordErr('New passwords do not match.');
       return;
     }
-    if (newPassword.length < 6) {
-      setPasswordErr('New password must be at least 6 characters.');
+    if (newPassword.length < 8) {
+      setPasswordErr('New password must be at least 8 characters.');
       return;
     }
 
@@ -153,7 +161,7 @@ const AccountSection: React.FC = () => {
             type="password"
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
-            placeholder="Min. 6 characters"
+            placeholder="Min. 8 characters"
           />
         </div>
         <div className="form-row">

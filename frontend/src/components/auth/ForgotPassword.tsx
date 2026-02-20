@@ -14,8 +14,14 @@ const ForgotPassword: React.FC = () => {
     setError('');
     setMessage('');
 
-    if (!email) {
+    if (!email.trim()) {
       setError('Please enter your email address');
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email.trim())) {
+      setError('Please enter a valid email address');
       return;
     }
 
