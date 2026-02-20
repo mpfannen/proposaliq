@@ -295,7 +295,13 @@ export const forgotPassword = async (req: Request, res: Response): Promise<void>
       [user.id, token, expiresAt]
     );
 
-    await sendPasswordResetEmail(user.email, token);
+    try {
+      await sendPasswordResetEmail(user.email, token);
+    } catch (emailError) {
+      console.error('❌ Failed to send password reset email:', emailError);
+      res.status(500).json({ success: false, message: 'Failed to send reset email. Please try again.' });
+      return;
+    }
 
     res.status(200).json({ success: true, message: 'If that email is registered, a reset link has been sent.' });
   } catch (error: any) {
