@@ -31,7 +31,15 @@ const FileUpload: React.FC = () => {
       navigate(`/proposal/${response.data.proposal_id}`);
     } catch (err: any) {
       console.error('Upload error:', err);
-      setError(err.response?.data?.message || 'Failed to upload file');
+      let message = 'Failed to upload file. Please try again.';
+      if (err.code === 'ECONNABORTED' || err.message?.toLowerCase().includes('timeout')) {
+        message = 'Upload timed out. The file may be too large or your connection is slow. Please try again.';
+      } else if (!err.response) {
+        message = 'Network error — please check your connection and try again.';
+      } else if (err.response?.data?.message) {
+        message = err.response.data.message;
+      }
+      setError(message);
       setUploading(false);
       setProgress(0);
     }

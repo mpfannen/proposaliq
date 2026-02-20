@@ -40,6 +40,11 @@ const ProposalDetail: React.FC = () => {
   const handleGenerateResponse = async () => {
     if (!id) return;
 
+    if (!proposal?.rfp_text?.trim()) {
+      setGenerateError('No RFP text available to generate a response from.');
+      return;
+    }
+
     setGenerating(true);
     setGenerateError('');
 
@@ -59,8 +64,15 @@ const ProposalDetail: React.FC = () => {
       }
     } catch (err: any) {
       console.error('Error generating response:', err);
-      const backendError = err.response?.data?.error || err.response?.data?.message || 'Failed to generate response';
-      setGenerateError(backendError);
+      let errMessage = 'Failed to generate response. Please try again.';
+      if (err.code === 'ECONNABORTED' || err.message?.toLowerCase().includes('timeout')) {
+        errMessage = 'Request timed out — generation can take up to a minute for large documents. Please try again.';
+      } else if (!err.response) {
+        errMessage = 'Network error — please check your connection and try again.';
+      } else if (err.response?.data?.error || err.response?.data?.message) {
+        errMessage = err.response.data.error || err.response.data.message;
+      }
+      setGenerateError(errMessage);
     } finally {
       setGenerating(false);
     }
