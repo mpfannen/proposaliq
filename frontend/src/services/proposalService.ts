@@ -42,7 +42,12 @@ export interface GenerateResponseResponse {
 }
 
 const proposalService = {
-  // Upload RFP file and create proposal
+  /**
+   * Uploads an RFP file to the server and creates a new proposal record.
+   * @param file - The RFP document (PDF, DOC, or DOCX).
+   * @param onProgress - Optional callback receiving upload percentage (0–100).
+   * @returns The created proposal's metadata including its ID.
+   */
   uploadRFP: async (file: File, onProgress?: (progress: number) => void): Promise<ProposalResponse> => {
     const formData = new FormData();
     formData.append('rfp_file', file);
@@ -69,7 +74,10 @@ const proposalService = {
     return response.data;
   },
 
-  // Get proposal by ID
+  /**
+   * Fetches a single proposal by its ID.
+   * @param proposalId - The numeric ID of the proposal.
+   */
   getProposal: async (proposalId: number): Promise<ProposalDetail> => {
     const token = localStorage.getItem('token');
 
@@ -85,7 +93,7 @@ const proposalService = {
     return response.data.data.proposal;
   },
 
-  // Get all proposals for current user
+  /** Fetches all proposals belonging to the currently authenticated user. */
   getUserProposals: async (): Promise<ProposalDetail[]> => {
     const token = localStorage.getItem('token');
 
@@ -101,7 +109,10 @@ const proposalService = {
     return response.data.data.proposals;
   },
 
-  // Delete a proposal
+  /**
+   * Permanently deletes a proposal by ID.
+   * @param proposalId - The numeric ID of the proposal to delete.
+   */
   deleteProposal: async (proposalId: number): Promise<void> => {
     const token = localStorage.getItem('token');
     await axios.delete(`${API_URL}/api/proposals/${proposalId}`, {
@@ -109,7 +120,10 @@ const proposalService = {
     });
   },
 
-  // Update win/loss outcome for a proposal
+  /**
+   * Records the win/loss outcome for a proposal, along with optional
+   * contract value, competitor, and loss reason details.
+   */
   updateOutcome: async (
     proposalId: number,
     data: {
@@ -126,7 +140,11 @@ const proposalService = {
     });
   },
 
-  // Generate AI response for proposal
+  /**
+   * Triggers AI generation of a proposal response for the given proposal.
+   * The proposal must have extracted RFP text before this can succeed.
+   * @param proposalId - The numeric ID of the proposal.
+   */
   generateResponse: async (proposalId: number): Promise<GenerateResponseResponse> => {
     const token = localStorage.getItem('token');
 

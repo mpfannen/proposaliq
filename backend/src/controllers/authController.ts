@@ -6,7 +6,11 @@ import UserModel from '../models/User';
 import pool from '../config/database';
 import { sendPasswordResetEmail, sendPasswordResetSuccessEmail } from '../services/emailService';
 
-// Verify reCAPTCHA v3 token with Google
+/**
+ * Verifies a reCAPTCHA v3 token with Google's siteverify API.
+ * Returns true if the token passes (score >= 0.5) or if RECAPTCHA_SECRET_KEY is not set.
+ * Fails open on Google API errors to prevent legitimate users being blocked.
+ */
 async function verifyRecaptcha(token: string): Promise<boolean> {
   const secret = process.env.RECAPTCHA_SECRET_KEY;
   if (!secret) {
@@ -53,7 +57,10 @@ async function verifyRecaptcha(token: string): Promise<boolean> {
   });
 }
 
-// Generate JWT token
+/**
+ * Generates a signed JWT for the given user ID.
+ * Expiry is controlled by the JWT_EXPIRE env var (default: 7d).
+ */
 const generateToken = (userId: number): string => {
   const secret: string = process.env.JWT_SECRET || 'your-secret-key';
   const expiresIn: string = process.env.JWT_EXPIRE || '7d';
