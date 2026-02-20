@@ -4,7 +4,7 @@ import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 import UserModel from '../models/User';
 import pool from '../config/database';
-import { sendPasswordResetEmail, sendPasswordResetSuccessEmail } from '../services/emailService';
+import { sendWelcomeEmail, sendPasswordResetEmail, sendPasswordResetSuccessEmail } from '../services/emailService';
 
 /**
  * Verifies a reCAPTCHA v3 token with Google's siteverify API.
@@ -115,6 +115,11 @@ export const register = async (req: Request, res: Response): Promise<void> => {
 
     // Create user
     const user = await UserModel.create({ email, password, name });
+
+    // Send welcome email — fire-and-forget so it never blocks registration
+    sendWelcomeEmail(user.email, user.name).catch((err) =>
+      console.error('❌ Failed to send welcome email:', err)
+    );
 
     // Generate token
     const token = generateToken(user.id);
