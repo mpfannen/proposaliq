@@ -1,21 +1,4 @@
-import nodemailer from 'nodemailer';
-
-function createTransporter() {
-  const host = process.env.SMTP_HOST;
-  const user = process.env.SMTP_USER;
-  const pass = process.env.SMTP_PASS;
-
-  if (!host || !user || !pass) {
-    return null; // dev fallback: log to console
-  }
-
-  return nodemailer.createTransport({
-    host,
-    port: parseInt(process.env.SMTP_PORT || '587'),
-    secure: process.env.SMTP_SECURE === 'true',
-    auth: { user, pass },
-  });
-}
+import { Resend } from 'resend';
 
 export async function sendPasswordResetEmail(
   toEmail: string,
@@ -23,7 +6,19 @@ export async function sendPasswordResetEmail(
 ): Promise<void> {
   const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
   const resetLink = `${frontendUrl}/reset-password/${resetToken}`;
-  const fromAddress = process.env.EMAIL_FROM || 'noreply@proposaliq.com';
+  const fromAddress = process.env.EMAIL_FROM || 'noreply@getproposaliq.com';
+  const apiKey = process.env.RESEND_API_KEY;
+
+  if (!apiKey) {
+    // Dev fallback — print to console so you can click the link without a mail server
+    console.log('\n📧 ========== PASSWORD RESET EMAIL (dev mode) ==========');
+    console.log(`To:      ${toEmail}`);
+    console.log(`Link:    ${resetLink}`);
+    console.log('=======================================================\n');
+    return;
+  }
+
+  const resend = new Resend(apiKey);
 
   const html = `
 <!DOCTYPE html>
@@ -99,23 +94,17 @@ export async function sendPasswordResetEmail(
 </body>
 </html>`;
 
-  const transporter = createTransporter();
-
-  if (!transporter) {
-    // Dev fallback — print to console so you can click the link without a mail server
-    console.log('\n📧 ========== PASSWORD RESET EMAIL (dev mode) ==========');
-    console.log(`To:      ${toEmail}`);
-    console.log(`Link:    ${resetLink}`);
-    console.log('=======================================================\n');
-    return;
-  }
-
-  await transporter.sendMail({
-    from: `"ProposalIQ" <${fromAddress}>`,
+  const { error } = await resend.emails.send({
+    from: `ProposalIQ <${fromAddress}>`,
     to: toEmail,
     subject: 'Reset your ProposalIQ password',
     html,
   });
+
+  if (error) {
+    console.error('❌ Resend error:', error);
+    throw new Error(`Failed to send password reset email: ${error.message}`);
+  }
 
   console.log(`✅ Password reset email sent to ${toEmail}`);
 }
