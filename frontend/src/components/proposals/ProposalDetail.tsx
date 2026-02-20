@@ -14,6 +14,7 @@ const ProposalDetail: React.FC = () => {
   const [error, setError] = useState('');
   const [generating, setGenerating] = useState(false);
   const [generateError, setGenerateError] = useState('');
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     const fetchProposal = async () => {
@@ -185,6 +186,20 @@ const ProposalDetail: React.FC = () => {
                 ? '🔄 Regenerate Response'
                 : '🤖 Generate Response'
             }
+          </button>
+          <button
+            className="btn-copy-detail"
+            onClick={() => {
+              if (!proposal.proposal_response) return;
+              navigator.clipboard.writeText(proposal.proposal_response).then(() => {
+                setCopied(true);
+                setTimeout(() => setCopied(false), 2000);
+              });
+            }}
+            disabled={!proposal.proposal_response}
+            title={!proposal.proposal_response ? 'Generate a response first' : 'Copy to clipboard'}
+          >
+            {copied ? '✅ Copied!' : '📋 Copy'}
           </button>
           <button
             className="btn-print-detail"

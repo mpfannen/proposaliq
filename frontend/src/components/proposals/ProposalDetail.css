@@ -346,6 +346,28 @@
   cursor: not-allowed;
 }
 
+.btn-copy-detail {
+  background: white;
+  color: #28a745;
+  border: 2px solid #28a745;
+  padding: 12px 32px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-copy-detail:hover:not(:disabled) {
+  background: #28a745;
+  color: white;
+}
+
+.btn-copy-detail:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
 .btn-print-detail {
   background: white;
   color: #667eea;
