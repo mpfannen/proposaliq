@@ -24,7 +24,7 @@ const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors({
-  origin: ['https://getproposaliq.com', 'https://www.getproposaliq.com', 'http://localhost:3000'],
+  origin: ['https://getproposaliq.com', 'https://www.getproposaliq.com', 'https://proposaliq.vercel.app', 'http://localhost:3000'],
   credentials: true,
 }));
 app.use(express.json());
