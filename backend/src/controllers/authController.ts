@@ -4,7 +4,7 @@ import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 import UserModel from '../models/User';
 import pool from '../config/database';
-import { sendPasswordResetEmail } from '../services/emailService';
+import { sendPasswordResetEmail, sendPasswordResetSuccessEmail } from '../services/emailService';
 
 // Verify reCAPTCHA v3 token with Google
 async function verifyRecaptcha(token: string): Promise<boolean> {
@@ -338,6 +338,14 @@ export const resetPassword = async (req: Request, res: Response): Promise<void> 
     const { user_id } = result.rows[0];
     await UserModel.updatePassword(user_id, password);
     await pool.query('DELETE FROM password_reset_tokens WHERE token = $1', [token]);
+
+    // Fire-and-forget confirmation email — failure doesn't block the response
+    const resetUser = await UserModel.findById(user_id);
+    if (resetUser?.email) {
+      sendPasswordResetSuccessEmail(resetUser.email).catch((err) =>
+        console.error('❌ Failed to send reset success email:', err)
+      );
+    }
 
     res.status(200).json({ success: true, message: 'Password has been reset successfully.' });
   } catch (error: any) {

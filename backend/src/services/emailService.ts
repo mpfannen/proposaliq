@@ -1,5 +1,7 @@
 import { Resend } from 'resend';
 
+/** Sends a password reset request email containing a tokenized reset link. */
+
 export async function sendPasswordResetEmail(
   toEmail: string,
   resetToken: string
@@ -107,4 +109,91 @@ export async function sendPasswordResetEmail(
   }
 
   console.log(`✅ Password reset email sent to ${toEmail}`);
+}
+
+/** Sends a confirmation email after a password reset has been completed successfully. */
+export async function sendPasswordResetSuccessEmail(toEmail: string): Promise<void> {
+  const fromAddress = process.env.EMAIL_FROM || 'noreply@getproposaliq.com';
+  const apiKey = process.env.RESEND_API_KEY;
+
+  if (!apiKey) {
+    console.log('\n📧 ========== PASSWORD RESET SUCCESS EMAIL (dev mode) ==========');
+    console.log(`To: ${toEmail}`);
+    console.log('================================================================\n');
+    return;
+  }
+
+  const resend = new Resend(apiKey);
+
+  const html = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Password Reset Successful</title>
+</head>
+<body style="margin:0;padding:0;background:#f5f7fa;font-family:Arial,Helvetica,sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#f5f7fa;padding:40px 20px;">
+    <tr>
+      <td align="center">
+        <table width="100%" cellpadding="0" cellspacing="0" style="max-width:520px;background:#ffffff;border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,0.08);overflow:hidden;">
+
+          <!-- Header -->
+          <tr>
+            <td style="background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);padding:32px 40px;text-align:center;">
+              <h1 style="margin:0;color:#ffffff;font-size:28px;font-weight:700;letter-spacing:-0.5px;">ProposalIQ</h1>
+            </td>
+          </tr>
+
+          <!-- Body -->
+          <tr>
+            <td style="padding:40px;">
+              <div style="text-align:center;margin-bottom:24px;">
+                <div style="display:inline-block;background:#e8f5e9;border-radius:50%;width:64px;height:64px;line-height:64px;font-size:32px;">✅</div>
+              </div>
+              <h2 style="margin:0 0 16px;color:#1a1a2e;font-size:22px;font-weight:700;text-align:center;">Password Reset Successful</h2>
+              <p style="margin:0 0 24px;color:#555;font-size:15px;line-height:1.6;text-align:center;">
+                Your ProposalIQ password has been successfully reset. You can now log in with your new password.
+              </p>
+              <p style="margin:0 0 28px;color:#777;font-size:13px;line-height:1.6;text-align:center;">
+                If you did not make this change, please contact support immediately.
+              </p>
+              <hr style="border:none;border-top:1px solid #f0f0f0;margin:0 0 24px;" />
+              <p style="margin:0;color:#aaa;font-size:12px;line-height:1.6;text-align:center;">
+                This is an automated security notification from ProposalIQ.
+              </p>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="background:#fafafa;padding:20px 40px;text-align:center;border-top:1px solid #f0f0f0;">
+              <p style="margin:0;color:#bbb;font-size:12px;">
+                &copy; ${new Date().getFullYear()} ProposalIQ. All rights reserved.
+              </p>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>`;
+
+  const { error } = await resend.emails.send({
+    from: `ProposalIQ <${fromAddress}>`,
+    to: toEmail,
+    subject: 'Your ProposalIQ password has been reset',
+    html,
+  });
+
+  if (error) {
+    // Log but don't throw — a failure here shouldn't block the user
+    console.error('❌ Failed to send password reset success email:', error);
+    return;
+  }
+
+  console.log(`✅ Password reset success email sent to ${toEmail}`);
 }
