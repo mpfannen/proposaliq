@@ -136,6 +136,25 @@
   margin: 0 0 20px 0;
 }
 
+.response-heading-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.response-heading-row h2 {
+  margin: 0;
+}
+
+.response-count {
+  font-size: 13px;
+  color: #888;
+  white-space: nowrap;
+}
+
 /* ── Rendered Markdown ─────────────────────────────────── */
 .markdown-body {
   background: #f8f9fa;

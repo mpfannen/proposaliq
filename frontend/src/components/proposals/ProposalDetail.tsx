@@ -159,7 +159,14 @@ const ProposalDetail: React.FC = () => {
 
         {proposal.proposal_response && (
           <div className="proposal-content">
-            <h2>AI-Generated Proposal Response</h2>
+            <div className="response-heading-row">
+              <h2>AI-Generated Proposal Response</h2>
+              <span className="response-count">
+                {proposal.proposal_response.trim().split(/\s+/).filter(Boolean).length} words
+                &nbsp;·&nbsp;
+                {proposal.proposal_response.length.toLocaleString()} chars
+              </span>
+            </div>
             <div className="markdown-body">
               <ReactMarkdown remarkPlugins={[remarkGfm]}>
                 {proposal.proposal_response}
