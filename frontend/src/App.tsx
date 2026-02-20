@@ -5,6 +5,7 @@ import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import ForgotPassword from './components/auth/ForgotPassword';
 import ResetPassword from './components/auth/ResetPassword';
+import NotFound from './components/common/NotFound';
 import Dashboard from './components/common/Dashboard';
 import PrivateRoute from './components/common/PrivateRoute';
 import FileUpload from './components/proposals/FileUpload';
@@ -80,7 +81,7 @@ function App() {
               </PrivateRoute>
             }
           />
-          <Route path="*" element={<Navigate to="/login" />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </AuthProvider>
     </Router>
