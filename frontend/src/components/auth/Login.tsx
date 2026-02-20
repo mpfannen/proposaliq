@@ -78,7 +78,7 @@ const Login: React.FC = () => {
           </div>
 
           <button type="submit" className="btn-primary" disabled={isLoading}>
-            {isLoading ? 'Logging in...' : 'Login'}
+            {isLoading ? <span className="btn-spinner">Logging in...</span> : 'Login'}
           </button>
         </form>
 

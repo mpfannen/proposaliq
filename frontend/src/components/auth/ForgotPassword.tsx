@@ -61,7 +61,7 @@ const ForgotPassword: React.FC = () => {
             </div>
 
             <button type="submit" className="btn-primary" disabled={isLoading}>
-              {isLoading ? 'Sending...' : 'Send Reset Link'}
+              {isLoading ? <span className="btn-spinner">Sending...</span> : 'Send Reset Link'}
             </button>
           </form>
         )}

@@ -95,7 +95,7 @@ const ResetPassword: React.FC = () => {
             </div>
 
             <button type="submit" className="btn-primary" disabled={isLoading}>
-              {isLoading ? 'Resetting...' : 'Reset Password'}
+              {isLoading ? <span className="btn-spinner">Resetting...</span> : 'Reset Password'}
             </button>
           </form>
         )}

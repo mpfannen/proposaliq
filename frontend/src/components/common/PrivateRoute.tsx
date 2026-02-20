@@ -13,13 +13,23 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
     return (
       <div style={{
         display: 'flex',
+        flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
         height: '100vh',
-        fontSize: '20px',
-        color: '#667eea'
+        gap: '16px',
+        background: '#f5f7fa',
       }}>
-        Loading...
+        <div style={{
+          width: 48,
+          height: 48,
+          border: '5px solid #e0e0e0',
+          borderTop: '5px solid #667eea',
+          borderRadius: '50%',
+          animation: 'spin 0.9s linear infinite',
+        }} />
+        <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+        <p style={{ color: '#667eea', fontWeight: 600, fontSize: 16, margin: 0 }}>Loading...</p>
       </div>
     );
   }

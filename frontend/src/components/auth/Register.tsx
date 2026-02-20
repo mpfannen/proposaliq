@@ -177,7 +177,7 @@ const Register: React.FC = () => {
           </div>
 
           <button type="submit" className="btn-primary" disabled={isLoading}>
-            {isLoading ? 'Creating Account...' : 'Register'}
+            {isLoading ? <span className="btn-spinner">Creating Account...</span> : 'Register'}
           </button>
         </form>
 
