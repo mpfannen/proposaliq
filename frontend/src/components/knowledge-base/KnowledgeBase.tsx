@@ -55,10 +55,16 @@ const KnowledgeBase: React.FC = () => {
     }
   };
 
+  const MAX_FILE_SIZE = 100 * 1024 * 1024; // 100MB
+
   const onDrop = async (acceptedFiles: File[]) => {
     if (acceptedFiles.length === 0) return;
 
     const file = acceptedFiles[0];
+    if (file.size > MAX_FILE_SIZE) {
+      setUploadError(`File is too large (${(file.size / (1024 * 1024)).toFixed(1)} MB). Maximum allowed size is 100MB.`);
+      return;
+    }
     setUploadError('');
     setSuccessMessage('');
     setUploading(true);
@@ -168,7 +174,7 @@ const KnowledgeBase: React.FC = () => {
               <>
                 <div className="upload-icon">📁</div>
                 <p>Drag & drop a document here</p>
-                <p className="file-hint">or click to browse — PDF, DOC, DOCX, MD (Max 10MB)</p>
+                <p className="file-hint">or click to browse — PDF, DOC, DOCX, MD (Max 100MB)</p>
               </>
             )}
           </div>

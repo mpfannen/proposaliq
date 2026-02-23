@@ -35,13 +35,13 @@ const kbFileFilter = (req: any, file: Express.Multer.File, cb: multer.FileFilter
 export const upload = multer({
   storage,
   fileFilter: rfpFileFilter,
-  limits: { fileSize: 10 * 1024 * 1024 },
+  limits: { fileSize: 100 * 1024 * 1024 },
 });
 
 export const kbUpload = multer({
   storage,
   fileFilter: kbFileFilter,
-  limits: { fileSize: 10 * 1024 * 1024 },
+  limits: { fileSize: 100 * 1024 * 1024 },
 });
 
 export const uploadRFP = upload.single('rfp_file');

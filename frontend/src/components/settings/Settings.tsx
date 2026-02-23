@@ -209,9 +209,15 @@ const KnowledgeBaseSection: React.FC = () => {
       .finally(() => setLoading(false));
   }, []);
 
+  const MAX_FILE_SIZE = 100 * 1024 * 1024; // 100MB
+
   const onDrop = useCallback(async (acceptedFiles: File[]) => {
     if (!acceptedFiles.length) return;
     const file = acceptedFiles[0];
+    if (file.size > MAX_FILE_SIZE) {
+      setUploadError(`File is too large (${(file.size / (1024 * 1024)).toFixed(1)} MB). Maximum allowed size is 100MB.`);
+      return;
+    }
     setUploadError('');
     setSuccessMessage('');
     setUploading(true);
@@ -285,7 +291,7 @@ const KnowledgeBaseSection: React.FC = () => {
             <>
               <div style={{ fontSize: 32, marginBottom: 8 }}>📁</div>
               <p>Drag & drop or click to browse</p>
-              <p className="file-hint">PDF, DOC, DOCX, MD — Max 10MB</p>
+              <p className="file-hint">PDF, DOC, DOCX, MD — Max 100MB</p>
             </>
           )}
         </div>

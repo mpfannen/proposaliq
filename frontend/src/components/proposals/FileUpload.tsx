@@ -10,12 +10,18 @@ const FileUpload: React.FC = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+  const MAX_FILE_SIZE = 100 * 1024 * 1024; // 100MB
+
   const onDrop = async (acceptedFiles: File[]) => {
     if (acceptedFiles.length === 0) {
       return;
     }
 
     const file = acceptedFiles[0];
+    if (file.size > MAX_FILE_SIZE) {
+      setError(`File is too large (${(file.size / (1024 * 1024)).toFixed(1)} MB). Maximum allowed size is 100MB.`);
+      return;
+    }
     setError('');
     setUploading(true);
     setProgress(0);
@@ -92,7 +98,7 @@ const FileUpload: React.FC = () => {
                   <p className="drag-text">Drag & drop your RFP here</p>
                   <p className="or-text">or</p>
                   <button className="browse-btn">Browse Files</button>
-                  <p className="file-types">Supported: PDF, DOC, DOCX (Max 10MB)</p>
+                  <p className="file-types">Supported: PDF, DOC, DOCX (Max 100MB)</p>
                 </>
               )}
             </div>
