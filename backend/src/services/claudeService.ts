@@ -15,6 +15,8 @@ export interface GenerateProposalInput {
   rfpText: string;
   rfpFilename: string;
   knowledgeBase?: KnowledgeBaseEntry[];
+  editInstructions?: string;
+  previousResponse?: string;
 }
 
 export interface GenerateProposalResponse {
@@ -56,7 +58,26 @@ export const generateProposalResponse = async (
     }
 
     // Construct the prompt for Claude
-    const prompt = `You are an expert proposal writer. You have been provided with a Request for Proposal (RFP) document. Your task is to analyze the RFP and generate a comprehensive, professional proposal response that addresses all requirements.${knowledgeBaseSection}
+    let prompt: string;
+
+    if (input.editInstructions && input.previousResponse) {
+      // Revision prompt: incorporate user feedback into the previous response
+      prompt = `You are an expert proposal writer. Below is an original RFP, your previous proposal response, and the user's requested edits. Please regenerate the proposal incorporating the requested changes.${knowledgeBaseSection}
+RFP Document: ${input.rfpFilename}
+
+RFP Content:
+${input.rfpText}
+
+YOUR PREVIOUS RESPONSE:
+${input.previousResponse}
+
+USER'S REQUESTED EDITS:
+${input.editInstructions}
+
+Please regenerate the full proposal incorporating these changes. Maintain the professional quality and structure while addressing the specific feedback provided.`;
+    } else {
+      // Standard first-generation prompt
+      prompt = `You are an expert proposal writer. You have been provided with a Request for Proposal (RFP) document. Your task is to analyze the RFP and generate a comprehensive, professional proposal response that addresses all requirements.${knowledgeBaseSection}
 RFP Document: ${input.rfpFilename}
 
 RFP Content:
@@ -73,6 +94,7 @@ Please analyze this RFP and generate a detailed proposal response that includes:
 7. **Conclusion**: Strong closing statement
 
 Format the response professionally with clear sections and headings. Be specific, persuasive, and tailored to the requirements in the RFP.`;
+    }
 
     // Call Claude API
     const message = await anthropic.messages.create({

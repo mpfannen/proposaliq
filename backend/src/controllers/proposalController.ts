@@ -257,6 +257,8 @@ export const generateResponse = async (req: Request, res: Response): Promise<voi
     const kbDocs = await KnowledgeBaseModel.findByUserIdWithContent(userId);
     console.log(`📚 Found ${kbDocs.length} knowledge base document(s) to include`);
 
+    const { editInstructions } = req.body;
+
     console.log('🤖 Calling Claude AI service...');
 
     // Generate proposal response using Claude AI
@@ -268,6 +270,8 @@ export const generateResponse = async (req: Request, res: Response): Promise<voi
         filename: doc.filename,
         content: doc.content,
       })),
+      editInstructions: editInstructions || undefined,
+      previousResponse: proposal.proposal_response || undefined,
     });
 
     // Update proposal with generated response

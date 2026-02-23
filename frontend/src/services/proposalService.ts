@@ -145,12 +145,12 @@ const proposalService = {
    * The proposal must have extracted RFP text before this can succeed.
    * @param proposalId - The numeric ID of the proposal.
    */
-  generateResponse: async (proposalId: number): Promise<GenerateResponseResponse> => {
+  generateResponse: async (proposalId: number, editInstructions?: string): Promise<GenerateResponseResponse> => {
     const token = localStorage.getItem('token');
 
     const response = await axios.post<GenerateResponseResponse>(
       `${API_URL}/api/proposals/${proposalId}/generate`,
-      {},
+      editInstructions ? { editInstructions } : {},
       {
         headers: {
           'Authorization': `Bearer ${token}`,

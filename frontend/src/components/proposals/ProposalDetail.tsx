@@ -15,6 +15,9 @@ const ProposalDetail: React.FC = () => {
   const [generating, setGenerating] = useState(false);
   const [generateError, setGenerateError] = useState('');
   const [copied, setCopied] = useState(false);
+  const [editInstructions, setEditInstructions] = useState('');
+  const [regenerating, setRegenerating] = useState(false);
+  const [regenSuccess, setRegenSuccess] = useState('');
 
   useEffect(() => {
     const fetchProposal = async () => {
@@ -76,6 +79,37 @@ const ProposalDetail: React.FC = () => {
       setGenerateError(errMessage);
     } finally {
       setGenerating(false);
+    }
+  };
+
+  const handleRegenerateWithEdits = async () => {
+    if (!id || !editInstructions.trim() || !proposal?.rfp_text) return;
+
+    setRegenerating(true);
+    setRegenSuccess('');
+    setGenerateError('');
+
+    try {
+      const result = await proposalService.generateResponse(parseInt(id), editInstructions.trim());
+      setProposal((prev) => prev ? {
+        ...prev,
+        proposal_response: result.data.proposal_response,
+        status: result.data.status,
+      } : null);
+      setEditInstructions('');
+      setRegenSuccess('Proposal regenerated successfully.');
+    } catch (err: any) {
+      let errMessage = 'Failed to regenerate response. Please try again.';
+      if (err.code === 'ECONNABORTED' || err.message?.toLowerCase().includes('timeout')) {
+        errMessage = 'Request timed out — generation can take up to a minute for large documents. Please try again.';
+      } else if (!err.response) {
+        errMessage = 'Network error — please check your connection and try again.';
+      } else if (err.response?.data?.error || err.response?.data?.message) {
+        errMessage = err.response.data.error || err.response.data.message;
+      }
+      setGenerateError(errMessage);
+    } finally {
+      setRegenerating(false);
     }
   };
 
@@ -172,6 +206,28 @@ const ProposalDetail: React.FC = () => {
                 {proposal.proposal_response}
               </ReactMarkdown>
             </div>
+          </div>
+        )}
+
+        {proposal.proposal_response && (
+          <div className="edit-instructions-section">
+            <h3>Refine This Proposal</h3>
+            <textarea
+              className="edit-textarea"
+              placeholder="Provide specific edits or additional instructions... (e.g., 'make it more formal', 'emphasize our sustainability experience', 'add a pricing breakdown')"
+              value={editInstructions}
+              onChange={(e) => setEditInstructions(e.target.value)}
+              disabled={regenerating}
+              rows={4}
+            />
+            {regenSuccess && <div className="regen-success">✅ {regenSuccess}</div>}
+            <button
+              className="btn-regenerate"
+              onClick={handleRegenerateWithEdits}
+              disabled={!editInstructions.trim() || regenerating}
+            >
+              {regenerating ? '⏳ Regenerating...' : '✏️ Regenerate with Edits'}
+            </button>
           </div>
         )}
 
