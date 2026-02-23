@@ -29,6 +29,8 @@ function formatBytes(bytes: number | null): string {
   return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
 }
 
+const MAX_FILE_SIZE = 100 * 1024 * 1024; // 100MB
+
 const KnowledgeBase: React.FC = () => {
   const navigate = useNavigate();
   const [documents, setDocuments] = useState<KBDocument[]>([]);
@@ -54,8 +56,6 @@ const KnowledgeBase: React.FC = () => {
       setLoading(false);
     }
   };
-
-  const MAX_FILE_SIZE = 100 * 1024 * 1024; // 100MB
 
   const onDrop = async (acceptedFiles: File[]) => {
     if (acceptedFiles.length === 0) return;

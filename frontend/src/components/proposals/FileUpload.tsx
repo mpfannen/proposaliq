@@ -4,13 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import proposalService from '../../services/proposalService';
 import './FileUpload.css';
 
+const MAX_FILE_SIZE = 100 * 1024 * 1024; // 100MB
+
 const FileUpload: React.FC = () => {
   const [uploading, setUploading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState('');
   const navigate = useNavigate();
-
-  const MAX_FILE_SIZE = 100 * 1024 * 1024; // 100MB
 
   const onDrop = async (acceptedFiles: File[]) => {
     if (acceptedFiles.length === 0) {

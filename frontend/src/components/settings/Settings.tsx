@@ -192,6 +192,8 @@ const AccountSection: React.FC = () => {
 
 // ─── Knowledge Base Section ──────────────────────────────────────────────────
 
+const MAX_FILE_SIZE = 100 * 1024 * 1024; // 100MB
+
 const KnowledgeBaseSection: React.FC = () => {
   const [documents, setDocuments] = useState<KBDocument[]>([]);
   const [loading, setLoading] = useState(true);
@@ -208,8 +210,6 @@ const KnowledgeBaseSection: React.FC = () => {
       .catch(() => {})
       .finally(() => setLoading(false));
   }, []);
-
-  const MAX_FILE_SIZE = 100 * 1024 * 1024; // 100MB
 
   const onDrop = useCallback(async (acceptedFiles: File[]) => {
     if (!acceptedFiles.length) return;
