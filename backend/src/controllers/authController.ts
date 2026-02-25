@@ -74,7 +74,7 @@ const generateToken = (userId: number): string => {
 export const register = async (req: Request, res: Response): Promise<void> => {
   console.log('🔵 Registration request received:', { email: req.body.email, name: req.body.name });
   try {
-    const { email, password, name, recaptchaToken } = req.body;
+    const { email, password, name, country_code, recaptchaToken } = req.body;
 
     // Validate input
     if (!email || !password || !name) {
@@ -114,7 +114,7 @@ export const register = async (req: Request, res: Response): Promise<void> => {
     }
 
     // Create user
-    const user = await UserModel.create({ email, password, name });
+    const user = await UserModel.create({ email, password, name, country_code });
 
     // Send welcome email — fire-and-forget so it never blocks registration
     sendWelcomeEmail(user.email, user.name).catch((err) =>

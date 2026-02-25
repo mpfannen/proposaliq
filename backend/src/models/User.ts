@@ -6,6 +6,7 @@ export interface User {
   email: string;
   password: string;
   name: string;
+  country_code: string | null;
   created_at: Date;
   updated_at: Date;
 }
@@ -14,12 +15,14 @@ export interface UserInput {
   email: string;
   password: string;
   name: string;
+  country_code?: string;
 }
 
 export interface UserResponse {
   id: number;
   email: string;
   name: string;
+  country_code: string | null;
   created_at: Date;
   updated_at: Date;
 }
@@ -28,7 +31,7 @@ class UserModel {
   // Create a new user
   async create(userData: UserInput): Promise<UserResponse> {
     console.log('🔵 UserModel.create called with:', { email: userData.email, name: userData.name });
-    const { email, password, name } = userData;
+    const { email, password, name, country_code } = userData;
 
     try {
       // Hash password
@@ -37,13 +40,13 @@ class UserModel {
       const hashedPassword = await bcrypt.hash(password, salt);
 
       const query = `
-        INSERT INTO users (email, password, name)
-        VALUES ($1, $2, $3)
-        RETURNING id, email, name, created_at, updated_at
+        INSERT INTO users (email, password, name, country_code)
+        VALUES ($1, $2, $3, $4)
+        RETURNING id, email, name, country_code, created_at, updated_at
       `;
 
       console.log('🔵 Executing INSERT query...');
-      const result = await pool.query(query, [email, hashedPassword, name]);
+      const result = await pool.query(query, [email, hashedPassword, name, country_code || null]);
       console.log('✅ User created successfully:', result.rows[0].id);
       return result.rows[0];
     } catch (error: any) {
