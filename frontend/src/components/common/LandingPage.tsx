@@ -131,30 +131,38 @@ const LandingPage: React.FC = () => {
         <div className="lp-container">
           <div className="lp-section-header">
             <h2>How it works</h2>
-            <p>Three steps from RFP to draft proposal.</p>
+            <p>Four steps from setup to submitted proposal.</p>
           </div>
           <div className="lp-steps">
             <div className="lp-step">
               <div className="lp-step-number">01</div>
               <div className="lp-step-body">
-                <h3>Upload your RFP document</h3>
-                <p>Drag and drop a PDF or Word file. ProposalIQ extracts every requirement, deadline, and evaluation criterion automatically.</p>
+                <h3>Build your company profile</h3>
+                <p>Add your firm's capabilities, specialties, and project experience so every proposal reflects your unique expertise.</p>
               </div>
             </div>
             <div className="lp-step-divider" aria-hidden="true" />
             <div className="lp-step">
               <div className="lp-step-number">02</div>
               <div className="lp-step-body">
-                <h3>AI generates a tailored draft</h3>
-                <p>Using your firm's knowledge base and the RFP requirements, ProposalIQ produces a structured proposal draft ready for your review.</p>
+                <h3>Upload past proposals</h3>
+                <p>Load your best previous proposals to build your knowledge base. The AI learns your firm's voice and winning style.</p>
               </div>
             </div>
             <div className="lp-step-divider" aria-hidden="true" />
             <div className="lp-step">
               <div className="lp-step-number">03</div>
               <div className="lp-step-body">
-                <h3>Refine and export</h3>
-                <p>Give edit instructions in plain English, review the updated sections, and export your finished proposal document.</p>
+                <h3>Upload the RFP</h3>
+                <p>Drop in the RFP document and ProposalIQ instantly generates a tailored, firm-specific proposal draft in minutes.</p>
+              </div>
+            </div>
+            <div className="lp-step-divider" aria-hidden="true" />
+            <div className="lp-step">
+              <div className="lp-step-number">04</div>
+              <div className="lp-step-body">
+                <h3>Refine &amp; export</h3>
+                <p>Review and polish the AI draft with built-in editing tools, then export a polished proposal ready to submit.</p>
               </div>
             </div>
           </div>

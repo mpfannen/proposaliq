@@ -275,7 +275,7 @@
   display: flex;
   align-items: flex-start;
   gap: 0;
-  max-width: 960px;
+  max-width: 1060px;
   margin: 0 auto;
 }
 
@@ -284,15 +284,16 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 0 24px;
+  padding: 0 20px;
+  min-width: 0;
 }
 
 .lp-step-number {
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: 700;
   color: var(--color-border);
   line-height: 1;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
   letter-spacing: -0.04em;
 }
 
@@ -312,7 +313,7 @@
 
 .lp-step-divider {
   width: 1px;
-  height: 120px;
+  height: 100px;
   background: var(--color-border);
   align-self: center;
   flex-shrink: 0;
@@ -385,7 +386,9 @@
   .lp-features-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+}
 
+@media (max-width: 1000px) {
   .lp-steps {
     flex-direction: column;
     gap: 32px;
