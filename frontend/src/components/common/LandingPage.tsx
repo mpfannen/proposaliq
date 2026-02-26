@@ -137,32 +137,32 @@ const LandingPage: React.FC = () => {
             <div className="lp-step">
               <div className="lp-step-number">01</div>
               <div className="lp-step-body">
-                <h3>Build your company profile</h3>
-                <p>Add your firm's capabilities, specialties, and project experience so every proposal reflects your unique expertise.</p>
+                <h3>Add your Knowledge Base</h3>
+                <p>Load your best previous proposals to build your knowledge base. Add your firm's capabilities, specialties, and project experience so every proposal reflects your unique expertise. The AI learns your firm's voice and winning style.</p>
               </div>
             </div>
             <div className="lp-step-divider" aria-hidden="true" />
             <div className="lp-step">
               <div className="lp-step-number">02</div>
               <div className="lp-step-body">
-                <h3>Upload past proposals</h3>
-                <p>Load your best previous proposals to build your knowledge base. The AI learns your firm's voice and winning style.</p>
+                <h3>Upload the RFP</h3>
+                <p>Drop in the RFP document and ProposalIQ gets to work immediately.</p>
               </div>
             </div>
             <div className="lp-step-divider" aria-hidden="true" />
             <div className="lp-step">
               <div className="lp-step-number">03</div>
               <div className="lp-step-body">
-                <h3>Upload the RFP</h3>
-                <p>Drop in the RFP document and ProposalIQ instantly generates a tailored, firm-specific proposal draft in minutes.</p>
+                <h3>Generate the Proposal using AI</h3>
+                <p>ProposalIQ instantly generates a tailored, firm-specific proposal draft in minutes — not days.</p>
               </div>
             </div>
             <div className="lp-step-divider" aria-hidden="true" />
             <div className="lp-step">
               <div className="lp-step-number">04</div>
               <div className="lp-step-body">
-                <h3>Refine &amp; export</h3>
-                <p>Review and polish the AI draft with built-in editing tools, then export a polished proposal ready to submit.</p>
+                <h3>Refine, Export or Print</h3>
+                <p>Review and polish the AI draft with built-in editing tools, then export or print a polished proposal ready to submit.</p>
               </div>
             </div>
           </div>
