@@ -1,174 +1,186 @@
+/* ─── Auth Pages ──────────────────────────────────────────────────────────── */
+
 .auth-container {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  padding: 20px;
+  background-color: var(--color-bg);
+  padding: 24px;
 }
 
 .auth-card {
-  background: white;
-  padding: 40px;
-  border-radius: 12px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  background: var(--color-surface);
+  padding: 48px 40px;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-lg);
   width: 100%;
-  max-width: 450px;
+  max-width: 440px;
 }
 
+/* Brand heading */
 .auth-card h1 {
-  color: #667eea;
-  font-size: 32px;
-  margin: 0 0 10px 0;
+  color: var(--color-primary);
+  font-size: 1.375rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0 0 4px 0;
   text-align: center;
 }
 
 .auth-card h2 {
-  color: #333;
-  font-size: 24px;
-  margin: 0 0 30px 0;
+  color: var(--color-text-muted);
+  font-size: 0.9375rem;
+  font-weight: 400;
+  margin: 0 0 32px 0;
   text-align: center;
-  font-weight: 500;
 }
 
+/* ── Form Layout ──────────────────────────────────────────────────────────── */
 .auth-form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 18px;
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
 .form-group label {
-  color: #555;
+  color: var(--color-secondary);
   font-weight: 500;
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 
-.form-group input {
-  padding: 12px 16px;
-  border: 2px solid #e0e0e0;
-  border-radius: 8px;
-  font-size: 16px;
-  transition: border-color 0.3s;
+.form-group input,
+.form-group select {
+  padding: 10px 14px;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: 0.9375rem;
+  color: var(--color-text);
+  background: var(--color-surface);
+  transition: border-color var(--transition), box-shadow var(--transition);
+  width: 100%;
 }
 
-.form-group input:focus {
+.form-group input::placeholder {
+  color: var(--color-text-subtle);
+}
+
+.form-group input:focus,
+.form-group select:focus {
   outline: none;
-  border-color: #667eea;
+  border-color: var(--color-cta);
+  box-shadow: 0 0 0 3px rgba(3, 105, 161, 0.12);
 }
 
-.form-group input:disabled {
-  background-color: #f5f5f5;
+.form-group input:disabled,
+.form-group select:disabled {
+  background: var(--color-bg);
   cursor: not-allowed;
+  opacity: 0.7;
 }
 
 .form-group select {
-  padding: 12px 16px;
-  border: 2px solid #e0e0e0;
-  border-radius: 8px;
-  font-size: 16px;
-  transition: border-color 0.3s;
-  background-color: white;
   appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23555' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23475569' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 14px center;
   padding-right: 38px;
   cursor: pointer;
 }
 
-.form-group select:focus {
-  outline: none;
-  border-color: #667eea;
-}
-
-.form-group select:disabled {
-  background-color: #f5f5f5;
-  cursor: not-allowed;
-}
-
+/* ── Primary Button ───────────────────────────────────────────────────────── */
 .btn-primary {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-cta);
+  color: #fff;
   border: none;
-  padding: 14px 20px;
-  border-radius: 8px;
-  font-size: 16px;
+  padding: 11px 20px;
+  border-radius: var(--radius-md);
+  font-size: 0.9375rem;
   font-weight: 600;
   cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
-  margin-top: 10px;
+  transition: background-color var(--transition);
+  margin-top: 6px;
+  width: 100%;
 }
 
 .btn-primary:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+  background-color: var(--color-cta-hover);
 }
 
 .btn-primary:disabled {
-  opacity: 0.6;
+  opacity: 0.55;
   cursor: not-allowed;
 }
 
+/* ── Messages ─────────────────────────────────────────────────────────────── */
 .error-message {
-  background-color: #fee;
-  color: #c33;
-  padding: 12px 16px;
-  border-radius: 8px;
-  border: 1px solid #fcc;
-  font-size: 14px;
-  text-align: center;
+  background-color: var(--color-error-bg);
+  color: var(--color-error-text);
+  padding: 11px 14px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-error-border);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin-bottom: 4px;
 }
 
+.success-message {
+  background-color: var(--color-success-bg);
+  color: var(--color-success-text);
+  padding: 11px 14px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-success-border);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin-bottom: 4px;
+}
+
+/* ── Links ────────────────────────────────────────────────────────────────── */
 .auth-link {
   text-align: center;
   margin-top: 20px;
-  color: #666;
-  font-size: 14px;
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
 }
 
 .auth-link a {
-  color: #667eea;
-  text-decoration: none;
+  color: var(--color-cta);
   font-weight: 600;
+  text-decoration: none;
 }
 
 .auth-link a:hover {
   text-decoration: underline;
 }
 
-.success-message {
-  background-color: #efffef;
-  color: #2a7a2a;
-  padding: 12px 16px;
-  border-radius: 8px;
-  border: 1px solid #b3e6b3;
-  font-size: 14px;
-  text-align: center;
-  margin-bottom: 16px;
-}
-
 .forgot-password-link {
   text-align: right;
-  margin-top: -12px;
-  font-size: 13px;
+  margin-top: -8px;
+  font-size: 0.8125rem;
 }
 
 .forgot-password-link a {
-  color: #667eea;
+  color: var(--color-text-muted);
   text-decoration: none;
+  transition: color var(--transition);
 }
 
 .forgot-password-link a:hover {
+  color: var(--color-cta);
   text-decoration: underline;
 }
 
-/* Inline button spinner */
+/* ── Loading Spinner inside button ───────────────────────────────────────── */
 .btn-spinner {
   display: inline-flex;
   align-items: center;
@@ -180,7 +192,7 @@
   display: inline-block;
   width: 14px;
   height: 14px;
-  border: 2px solid rgba(255, 255, 255, 0.4);
+  border: 2px solid rgba(255, 255, 255, 0.35);
   border-top-color: #ffffff;
   border-radius: 50%;
   animation: btn-spin 0.7s linear infinite;
@@ -189,4 +201,11 @@
 
 @keyframes btn-spin {
   to { transform: rotate(360deg); }
+}
+
+/* ── Responsive ───────────────────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .auth-card {
+    padding: 36px 24px;
+  }
 }

@@ -7,6 +7,7 @@ import ForgotPassword from './components/auth/ForgotPassword';
 import ResetPassword from './components/auth/ResetPassword';
 import NotFound from './components/common/NotFound';
 import Dashboard from './components/common/Dashboard';
+import LandingPage from './components/common/LandingPage';
 import PrivateRoute from './components/common/PrivateRoute';
 import FileUpload from './components/proposals/FileUpload';
 import ProposalDetail from './components/proposals/ProposalDetail';
@@ -20,7 +21,7 @@ function App() {
     <Router>
       <AuthProvider>
         <Routes>
-          <Route path="/" element={<Navigate to="/login" />} />
+          <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />

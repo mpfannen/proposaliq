@@ -1,243 +1,277 @@
+/* ─── File Upload Page ────────────────────────────────────────────────────── */
+
 .file-upload-container {
   min-height: 100vh;
-  background-color: #f5f7fa;
-}
-
-.page-nav {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 16px 40px;
+  background: var(--color-bg);
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  flex-direction: column;
 }
 
+/* ── Shared page nav (used by upload, proposals, etc.) ───────────────────── */
+.page-nav {
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  position: sticky;
+  top: 0;
+  z-index: 40;
+}
+
+.page-nav-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Legacy selectors used by FileUpload.tsx directly */
 .page-nav h1 {
+  font-size: 1.1875rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  letter-spacing: -0.02em;
   margin: 0;
-  font-size: 26px;
   cursor: pointer;
+  transition: color var(--transition);
+}
+
+.page-nav h1:hover {
+  color: var(--color-cta);
 }
 
 .page-nav-btn {
-  background: rgba(255, 255, 255, 0.25);
-  color: white;
-  border: 2px solid white;
-  padding: 7px 18px;
-  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  color: var(--color-secondary);
+  border: 1px solid var(--color-border);
+  padding: 7px 14px;
+  border-radius: var(--radius-md);
+  font-size: 0.8125rem;
+  font-weight: 500;
   cursor: pointer;
-  font-weight: 600;
-  font-size: 14px;
-  transition: all 0.2s;
+  transition: background-color var(--transition), border-color var(--transition), color var(--transition);
 }
 
 .page-nav-btn:hover {
-  background: white;
-  color: #667eea;
+  background: var(--color-bg);
+  border-color: var(--color-border-hover);
+  color: var(--color-primary);
 }
 
+/* ── Body ─────────────────────────────────────────────────────────────────── */
 .file-upload-body {
-  padding: 40px 20px;
+  flex: 1;
+  padding: 48px 24px;
 }
 
 .file-upload-card {
-  max-width: 700px;
+  max-width: 680px;
   margin: 0 auto;
-  background: white;
+  background: var(--color-surface);
   padding: 40px;
-  border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-md);
 }
 
 .file-upload-card h2 {
-  color: #333;
-  font-size: 32px;
-  margin: 0 0 10px 0;
+  color: var(--color-primary);
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0 0 8px 0;
   text-align: center;
 }
 
 .subtitle {
-  color: #666;
-  font-size: 16px;
+  color: var(--color-text-muted);
+  font-size: 0.9375rem;
   text-align: center;
-  margin: 0 0 30px 0;
+  margin: 0 0 28px 0;
 }
 
+/* ── Dropzone ─────────────────────────────────────────────────────────────── */
 .dropzone {
-  border: 3px dashed #d0d0d0;
-  border-radius: 12px;
-  padding: 60px 40px;
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 56px 32px;
   text-align: center;
   cursor: pointer;
-  transition: all 0.3s ease;
-  background-color: #fafafa;
+  transition: border-color var(--transition), background-color var(--transition);
+  background: var(--color-bg);
 }
 
 .dropzone:hover:not(.disabled) {
-  border-color: #667eea;
-  background-color: #f0f2ff;
+  border-color: var(--color-cta);
+  background: var(--color-cta-light);
 }
 
 .dropzone.active {
-  border-color: #667eea;
-  background-color: #e8ebff;
+  border-color: var(--color-cta);
+  background: var(--color-cta-light);
 }
 
 .dropzone.disabled {
   cursor: not-allowed;
-  opacity: 0.7;
+  opacity: 0.65;
 }
 
 .upload-prompt {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 15px;
+  gap: 12px;
 }
 
 .upload-icon {
-  font-size: 64px;
-  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  background: var(--color-cta-light);
+  border-radius: var(--radius-lg);
+  color: var(--color-cta);
+  margin-bottom: 4px;
 }
 
 .drag-text {
-  font-size: 20px;
+  font-size: 1.0625rem;
   font-weight: 600;
-  color: #333;
+  color: var(--color-primary);
   margin: 0;
 }
 
 .or-text {
-  font-size: 14px;
-  color: #999;
+  font-size: 0.875rem;
+  color: var(--color-text-subtle);
   margin: 0;
 }
 
 .browse-btn {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--color-cta);
   color: white;
   border: none;
-  padding: 12px 32px;
-  border-radius: 8px;
-  font-size: 16px;
+  padding: 10px 24px;
+  border-radius: var(--radius-md);
+  font-size: 0.9375rem;
   font-weight: 600;
   cursor: pointer;
-  transition: transform 0.2s;
+  transition: background-color var(--transition);
 }
 
 .browse-btn:hover {
-  transform: translateY(-2px);
+  background: var(--color-cta-hover);
 }
 
 .file-types {
-  font-size: 13px;
-  color: #999;
-  margin: 10px 0 0 0;
+  font-size: 0.8125rem;
+  color: var(--color-text-subtle);
+  margin: 4px 0 0 0;
 }
 
+/* ── Upload in progress ───────────────────────────────────────────────────── */
 .uploading-state {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: 18px;
 }
 
 .uploading-state p {
-  font-size: 18px;
+  font-size: 1rem;
   font-weight: 600;
-  color: #333;
+  color: var(--color-primary);
   margin: 0;
 }
 
 .spinner {
-  width: 50px;
-  height: 50px;
-  border: 5px solid #f3f3f3;
-  border-top: 5px solid #667eea;
+  width: 44px;
+  height: 44px;
+  border: 3px solid var(--color-border);
+  border-top: 3px solid var(--color-cta);
   border-radius: 50%;
-  animation: spin 1s linear infinite;
+  animation: spin 0.8s linear infinite;
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  to { transform: rotate(360deg); }
 }
 
 .progress-bar {
   width: 100%;
-  max-width: 400px;
-  height: 24px;
-  background-color: #e0e0e0;
-  border-radius: 12px;
+  max-width: 380px;
+  height: 6px;
+  background: var(--color-border);
+  border-radius: 100px;
   overflow: hidden;
 }
 
 .progress-fill {
   height: 100%;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--color-cta);
+  border-radius: 100px;
   transition: width 0.3s ease;
 }
 
 .progress-text {
-  font-size: 16px;
+  font-size: 0.875rem;
   font-weight: 600;
-  color: #667eea;
+  color: var(--color-cta);
   margin: 0;
 }
 
+/* ── Messages ─────────────────────────────────────────────────────────────── */
 .error-message {
-  background-color: #fee;
-  color: #c33;
-  padding: 12px 16px;
-  border-radius: 8px;
-  border: 1px solid #fcc;
-  font-size: 14px;
-  text-align: center;
+  background: var(--color-error-bg);
+  color: var(--color-error-text);
+  padding: 11px 14px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-error-border);
+  font-size: 0.875rem;
+  line-height: 1.5;
   margin-top: 20px;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
   gap: 8px;
 }
 
+/* ── Cancel button ────────────────────────────────────────────────────────── */
 .cancel-btn {
   margin-top: 20px;
-  background-color: #f5f5f5;
-  color: #666;
-  border: 2px solid #ddd;
-  padding: 12px 32px;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: 600;
+  background: transparent;
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border);
+  padding: 11px 24px;
+  border-radius: var(--radius-md);
+  font-size: 0.9375rem;
+  font-weight: 500;
   cursor: pointer;
-  transition: all 0.3s;
+  transition: background-color var(--transition), border-color var(--transition);
   width: 100%;
 }
 
 .cancel-btn:hover:not(:disabled) {
-  background-color: #e0e0e0;
-  border-color: #ccc;
+  background: var(--color-bg);
+  border-color: var(--color-border-hover);
 }
 
 .cancel-btn:disabled {
-  opacity: 0.5;
+  opacity: 0.45;
   cursor: not-allowed;
 }
 
+/* ── Responsive ───────────────────────────────────────────────────────────── */
 @media (max-width: 600px) {
   .file-upload-card {
-    padding: 30px 20px;
+    padding: 28px 20px;
   }
 
   .dropzone {
     padding: 40px 20px;
-  }
-
-  .upload-icon {
-    font-size: 48px;
-  }
-
-  .drag-text {
-    font-size: 18px;
   }
 }

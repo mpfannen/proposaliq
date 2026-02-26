@@ -1,39 +1,52 @@
 .proposal-detail-container {
   min-height: 100vh;
-  background-color: #f5f7fa;
+  background-color: var(--color-bg);
 }
 
 .page-nav {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 16px 40px;
+  background: var(--color-surface);
+  color: var(--color-primary);
+  padding: 0 40px;
+  height: 60px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .page-nav h1 {
   margin: 0;
-  font-size: 26px;
+  font-size: 1.1875rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
   cursor: pointer;
+  color: var(--color-primary);
+  transition: color var(--transition);
+}
+
+.page-nav h1:hover {
+  color: var(--color-cta);
 }
 
 .page-nav-btn {
-  background: rgba(255, 255, 255, 0.25);
-  color: white;
-  border: 2px solid white;
-  padding: 7px 18px;
-  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border);
+  padding: 7px 14px;
+  border-radius: var(--radius-md);
   cursor: pointer;
-  font-weight: 600;
-  font-size: 14px;
-  transition: all 0.2s;
+  font-weight: 500;
+  font-size: 0.8125rem;
+  transition: background-color var(--transition), border-color var(--transition), color var(--transition);
 }
 
 .page-nav-btn:hover {
-  background: white;
-  color: #667eea;
+  background: var(--color-bg);
+  border-color: var(--color-border-hover);
+  color: var(--color-primary);
 }
 
 .proposal-detail-body {
@@ -56,7 +69,7 @@
 .back-btn {
   background: none;
   border: none;
-  color: #667eea;
+  color: var(--color-cta);
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
@@ -66,7 +79,7 @@
 }
 
 .back-btn:hover {
-  color: #764ba2;
+  color: var(--color-cta);
 }
 
 .proposal-header h1 {
@@ -231,7 +244,7 @@
 .markdown-body blockquote {
   margin: 1em 0;
   padding: 10px 16px;
-  border-left: 4px solid #667eea;
+  border-left: 4px solid var(--color-cta);
   background: #f0f2ff;
   color: #444;
   border-radius: 0 4px 4px 0;
@@ -345,7 +358,7 @@
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--color-cta);
   color: white;
   border: none;
   padding: 12px 32px;
@@ -389,8 +402,8 @@
 
 .btn-print-detail {
   background: white;
-  color: #667eea;
-  border: 2px solid #667eea;
+  color: var(--color-cta);
+  border: 2px solid var(--color-cta);
   padding: 12px 32px;
   border-radius: 8px;
   font-size: 16px;
@@ -400,7 +413,7 @@
 }
 
 .btn-print-detail:hover:not(:disabled) {
-  background: #667eea;
+  background: var(--color-cta);
   color: white;
 }
 
@@ -436,7 +449,7 @@
   width: 50px;
   height: 50px;
   border: 5px solid #f3f3f3;
-  border-top: 5px solid #667eea;
+  border-top: 5px solid var(--color-cta);
   border-radius: 50%;
   animation: spin 1s linear infinite;
   margin: 0 auto 20px;
@@ -458,7 +471,7 @@
 }
 
 .btn-back {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--color-cta);
   color: white;
   border: none;
   padding: 12px 32px;

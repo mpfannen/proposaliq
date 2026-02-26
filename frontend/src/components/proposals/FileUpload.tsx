@@ -66,7 +66,10 @@ const FileUpload: React.FC = () => {
     <div className="file-upload-container">
       <nav className="page-nav">
         <h1 onClick={() => navigate('/dashboard')}>ProposalIQ</h1>
-        <button className="page-nav-btn" onClick={() => navigate('/dashboard')}>🏠 Dashboard</button>
+        <button className="page-nav-btn" onClick={() => navigate('/dashboard')}>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          Dashboard
+        </button>
       </nav>
       <div className="file-upload-body">
       <div className="file-upload-card">
@@ -90,15 +93,17 @@ const FileUpload: React.FC = () => {
             </div>
           ) : (
             <div className="upload-prompt">
-              <div className="upload-icon">📄</div>
+              <div className="upload-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              </div>
               {isDragActive ? (
                 <p className="drag-text">Drop the file here</p>
               ) : (
                 <>
-                  <p className="drag-text">Drag & drop your RFP here</p>
+                  <p className="drag-text">Drag &amp; drop your RFP here</p>
                   <p className="or-text">or</p>
-                  <button className="browse-btn">Browse Files</button>
-                  <p className="file-types">Supported: PDF, DOC, DOCX (Max 100MB)</p>
+                  <button className="browse-btn">Browse files</button>
+                  <p className="file-types">Supported: PDF, DOC, DOCX &mdash; max 100MB</p>
                 </>
               )}
             </div>
@@ -107,7 +112,8 @@ const FileUpload: React.FC = () => {
 
         {error && (
           <div className="error-message">
-            <span>⚠️</span> {error}
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{flexShrink:0,marginTop:1}}><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            {error}
           </div>
         )}
 

@@ -1,17 +1,18 @@
 .analytics-container {
   min-height: 100vh;
-  background-color: #f5f7fa;
+  background-color: var(--color-bg);
 }
 
 /* Nav — same style as MyProposals */
 .analytics-nav {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 16px 40px;
+  background: var(--color-surface);
+  color: var(--color-primary);
+  padding: 0 40px;
+  height: 60px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .analytics-nav .nav-brand h1 {
@@ -26,60 +27,63 @@
 }
 
 .nav-link {
-  background: rgba(255, 255, 255, 0.15);
-  color: white;
-  border: none;
-  padding: 7px 16px;
-  border-radius: 6px;
+  background: transparent;
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border);
+  padding: 6px 12px;
+  border-radius: var(--radius-md);
   cursor: pointer;
-  font-size: 14px;
+  font-size: 0.8125rem;
   font-weight: 500;
-  transition: background 0.2s;
+  transition: background-color var(--transition), color var(--transition), border-color var(--transition);
 }
 
 .nav-link:hover {
-  background: rgba(255, 255, 255, 0.28);
+  background: var(--color-bg);
+  color: var(--color-primary);
+  border-color: var(--color-border-hover);
 }
 
 .nav-link-home {
-  background: rgba(255, 255, 255, 0.25);
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  color: var(--color-secondary);
 }
 
 .nav-link-active {
-  background: rgba(255, 255, 255, 0.35);
-  border: 1px solid rgba(255, 255, 255, 0.7);
-  font-weight: 700;
+  background: var(--color-cta-light);
+  color: var(--color-cta);
+  border-color: #BFDBFE;
+  font-weight: 600;
 }
 
 .nav-divider {
   width: 1px;
-  height: 24px;
-  background: rgba(255, 255, 255, 0.3);
-  margin: 0 6px;
+  height: 20px;
+  background: var(--color-border);
+  margin: 0 4px;
 }
 
 .nav-user {
-  font-size: 14px;
-  opacity: 0.9;
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
   padding: 0 4px;
 }
 
 .btn-logout {
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
-  border: 2px solid white;
-  padding: 7px 16px;
-  border-radius: 6px;
+  background: transparent;
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border);
+  padding: 7px 14px;
+  border-radius: var(--radius-md);
   cursor: pointer;
-  font-weight: 600;
-  font-size: 14px;
-  transition: all 0.2s;
+  font-weight: 500;
+  font-size: 0.8125rem;
+  transition: background-color var(--transition), border-color var(--transition), color var(--transition);
 }
 
 .btn-logout:hover {
-  background: white;
-  color: #667eea;
+  background: var(--color-bg);
+  border-color: var(--color-border-hover);
+  color: var(--color-primary);
 }
 
 /* Loading / Error */
@@ -98,7 +102,7 @@
   width: 36px;
   height: 36px;
   border: 3px solid #e1e5e9;
-  border-top-color: #667eea;
+  border-top-color: var(--color-cta);
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }
@@ -150,7 +154,7 @@
 }
 
 .metric-card.metric-value-won {
-  border-top-color: #667eea;
+  border-top-color: var(--color-cta);
 }
 
 .metric-icon {
@@ -225,7 +229,7 @@
 
 /* ── ROI Calculator ────────────────────────────────────────── */
 .roi-card {
-  background: linear-gradient(135deg, #667eea08 0%, #764ba208 100%);
+  background: linear-gradient(135deg, var(--color-cta)08 0%, var(--color-cta)08 100%);
   border: 1px solid #e8eaff;
 }
 
@@ -269,7 +273,7 @@
 
 .roi-input-group input:focus {
   outline: none;
-  border-color: #667eea;
+  border-color: var(--color-cta);
 }
 
 .roi-breakdown {

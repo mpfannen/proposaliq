@@ -24,7 +24,10 @@
       "Bash(powershell -Command:*)",
       "Bash(git add:*)",
       "Bash(Proposal Response\" heading:*)",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Bash(python3:*)",
+      "Bash(py:*)",
+      "Bash(do:*)"
     ]
   }
 }
